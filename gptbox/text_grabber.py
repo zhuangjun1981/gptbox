@@ -1,7 +1,8 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-def grab_text_from_url(url):
+
+def extract_text_from_url(url):
 
     html = urlopen(url).read()
     soup = BeautifulSoup(html, features="html.parser")
@@ -21,6 +22,27 @@ def grab_text_from_url(url):
     # text = '\n'.join(chunk for chunk in chunks if chunk)
 
     return text
+
+
+def extract_article_text_from_url(url):
+
+    # Send a request to the website
+    html = urlopen(url).read()
+
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(html, features="html.parser")
+    
+    # Find the main article content
+    article = soup.find('article')
+    
+    # Find all unwanted elements such as ads, links, buttons etc.
+    unwanted_tags = ['aside', 'script', 'style', 'footer']
+    for tag in unwanted_tags:
+        for element in article.find_all(tag):
+            element.decompose()
+    
+    # Extract the text from the article and return it
+    return article.get_text().strip()
 
 
 class TextCleaner(object):
@@ -44,7 +66,9 @@ class TextCleaner(object):
 if __name__ == "__main__":
     url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
     
-    txt = grab_text_from_url(url=url)
-    txt_cleaner = TextCleaner()
-    txt = TextCleaner.basic_cleaning(txt=txt)
+    # txt = grab_text_from_url(url=url)
+    # txt_cleaner = TextCleaner()
+    # txt = TextCleaner.basic_cleaning(txt=txt)
+
+    txt = extract_article_text_from_url(url=url)
     print(txt)
