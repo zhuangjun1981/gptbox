@@ -71,6 +71,9 @@ class TextGrabber(object):
         for meta in metas:
             if meta.get('property') == 'og:title':
                 text_dict['title'] = meta.get('content').strip()
+
+            if meta.get('name') == 'parsely-author':
+                text_dict['author'] = meta.get('content').strip()
                 
             if meta.get('property') == 'og:description':
                 text_dict['description'] = meta.get('content').strip()
