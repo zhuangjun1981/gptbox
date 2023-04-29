@@ -4,12 +4,23 @@ from bs4 import BeautifulSoup
 
 
 def parse_html(url):
+    """
+    parse an html into several soup objects
+    """
     html = request.urlopen(url).read()
     soup = BeautifulSoup(html, features="html.parser")
     return soup
 
 
 def detect_domain(url):
+    """
+    detect the domain name from an URL.
+    These domain can be used by ContentGrabber to extract useful 
+    information from the soup.
+
+    Currently the recognizable domains are: 
+        'space.com'
+    """
 
     padded_url = url + ' ' * 25
 
@@ -23,6 +34,20 @@ def detect_domain(url):
     
 
 def get_clean_text_spacedotcom(url):
+    """
+    Extract useful text from a space.com url.
+
+    :param url: string, url of the webpage
+    :return text_dict: dictionary, each value is a string
+        keys:
+            url : url of the webpage
+            title : title of the article
+            author : author of the article
+            description : a short description of the article
+            title_image_url : url of the title image
+            published_time : publication time of the article
+            article : body text of the article
+    """
 
     domain = detect_domain(url=url)
     if domain != 'space.com':
@@ -119,6 +144,13 @@ def get_clean_text_spacedotcom(url):
     
 
 def download_image(url, folder, filename=None):
+    """
+    download the web image into a specified folder
+    :params url: string, url link to the image
+    :params folder: string, path the saving folder
+    :params filename: string, file name to be saved, 
+                      if None, original file name will be used.
+    """
     
     fn_original = os.path.split(url)[1]
 
