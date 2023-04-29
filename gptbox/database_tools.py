@@ -25,7 +25,7 @@ def save_html_content(article, folder):
     h5f.close()
     
 
-def get_text_for_printing(h5_path):
+def get_text_for_printing_eng(h5_path):
 
     h5f = h5py.File(h5_path, 'r')
 
@@ -53,6 +53,6 @@ if __name__ == "__main__":
     # save_html_content(article=article, folder=save_folder)
 
     # h5_path = r"D:\temp\2023-04-21_space.com.h5"
-    # print(get_text_for_printing(h5_path=h5_path))
+    # print(get_text_for_printing_eng(h5_path=h5_path))
 
 
