@@ -44,11 +44,12 @@ def get_clean_text_spacedotcom(url):
             domain : domain of the webpage
             title : title of the article
             author : author of the article
+            author_bio : a paragraph of author bio
             description : a short description of the article
             title_image_url : url of the title image
             published_time : publication time of the article
                 format should always be "yyyy-mm-dd-hh-mm-ss"
-            article : body text of the article
+            body : body text of the article
     """
 
     domain = detect_domain(url=url)
@@ -140,10 +141,11 @@ def get_clean_text_spacedotcom(url):
         article.append(ptxt)
         pi += 1
         
-    article = '\n'.join([a for a in article if a])
-    article = article.replace(" (opens in new tab)", "")
+    article = [a.replace(" (opens in new tab)", "") for a in article]
+    text_dict['author_bio'] = article.pop()
 
-    text_dict['article'] = article
+    article = '\n'.join([a for a in article if a])
+    text_dict['body'] = article
 
     # print('\n\n')
     # for key, value in stuff.items():
