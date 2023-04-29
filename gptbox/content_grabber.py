@@ -41,6 +41,7 @@ def get_clean_text_spacedotcom(url):
     :return text_dict: dictionary, each value is a string
         keys:
             url : url of the webpage
+            domain : domain of the webpage
             title : title of the article
             author : author of the article
             description : a short description of the article
@@ -69,6 +70,7 @@ def get_clean_text_spacedotcom(url):
                 element.decompose()
 
     text_dict = {}
+    text_dict['domain'] = domain
 
     # useful info from meta
     metas = soup.find('head').find_all('meta')
