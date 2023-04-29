@@ -166,7 +166,7 @@ def download_image(url, folder, filename=None):
     if filename is None:
         filename = fn_original
     else:
-        filename = f'{filename}.{os.path.splitext(fn_original)[1]}'
+        filename = f'{filename}{os.path.splitext(fn_original)[1]}'
 
     request.urlretrieve(url, os.path.join(folder, filename))
 
