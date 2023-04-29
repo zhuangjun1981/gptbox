@@ -52,7 +52,7 @@ if __name__ == "__main__":
     # article.get_text_from_html(url=url)
     # save_html_content(article=article, folder=save_folder)
 
-    # h5_path = r"D:\temp\2023-04-21_space.com.h5"
-    # print(get_text_for_printing_eng(h5_path=h5_path))
+    h5_path = r"D:\temp\2023-04-21_space.com.h5"
+    print(get_text_for_printing_eng(h5_path=h5_path))
 
 
