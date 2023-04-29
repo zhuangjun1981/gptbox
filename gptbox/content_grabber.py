@@ -46,6 +46,7 @@ def get_clean_text_spacedotcom(url):
             description : a short description of the article
             title_image_url : url of the title image
             published_time : publication time of the article
+                format should always be "yyyy-mm-dd-hh-mm-ss"
             article : body text of the article
     """
 
@@ -89,7 +90,13 @@ def get_clean_text_spacedotcom(url):
             text_dict['title_image_url'] = meta.get('content').strip()
             
         if meta.get('property') == 'article:published_time':
-            text_dict['published_time'] = meta.get('content').strip()
+
+            pt = meta.get('content').strip()
+            pt = pt.replace('T', '-')
+            pt = pt.replace(':', '-')
+            pt = pt.replace('Z', '')
+
+            text_dict['published_time'] = pt
 
     # useful stuff from p        
     ps = soup.find_all('p')
@@ -200,6 +207,6 @@ if __name__ == "__main__":
     # print(cg.raw_text)
     [print(f'{k}: {v}') for k, v in cg.clean_text_dict.items()]
 
-    img_url = cg.clean_text_dict['title_image_url']
-    download_image(url=img_url, folder=r"C:\Users\wood_\Desktop", filename=None)
+    # img_url = cg.clean_text_dict['title_image_url']
+    # download_image(url=img_url, folder=r"D:\temp", filename=None)
 
