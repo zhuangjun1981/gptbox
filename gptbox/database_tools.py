@@ -24,6 +24,8 @@ def save_html_content(article, folder):
     for k, v in article.clean_text_dict.items():
         h5f.create_dataset(k, data=v)
     h5f.close()
+
+    return h5_path
     
 
 def get_text_for_printing_eng(h5_path):
@@ -54,7 +56,7 @@ def get_text_for_printing_chs(h5_path):
     txt += f'\n\n作者: {h5f["author"][()].decode()}'
     txt += f'\n{h5f["author_bio_chinese"][()].decode()}'
     txt += f'\n\n副标题: {h5f["subtitle_chinese"][()].decode()}'
-    txt += f'\n\n摘要 (ChatGTP 生成): {h5f["summary_chinese"][()].decode()}'
+    txt += f'\n\n摘要 (ChatGPT 生成): {h5f["summary_chinese"][()].decode()}'
     txt += f'\n\n{h5f["body_chinese"][()].decode()}'
 
     return txt
@@ -64,19 +66,38 @@ def translate_h5_file(h5_path, **kwargs):
 
     ff = h5py.File(h5_path, 'a')
 
-    for key in ["title", "subtitle", "author_bio"]:
+    body = ff['body'][()].decode()
+    prompt_s = ts.get_summary_prompt(body)
+    ff.create_dataset('summary', data=ts.run_gpt(prompt=prompt_s, **kwargs))
+
+    for key in ["title", "subtitle", "author_bio", "body", "summary"]:
         prompt = ts.get_simple_translate_prompt(txt=ff[key][()].decode())
         ff.create_dataset(f'{key}_chinese', 
-                          data=ts.translate(prompt=prompt,
+                          data=ts.run_gpt(prompt=prompt,
                                             **kwargs))
     
-    prompt_body = ts.get_body_prompt(body=ff["body"][()].decode())
-    resp_body = ts.translate(prompt=prompt_body, **kwargs)
-    resp_body = json.loads(resp_body)
-    for key, value in resp_body.items():
-        ff.create_dataset(key, data=value)
-    
     ff.close()
+
+
+def save_text_files(h5_path):
+    
+    # get the save folde and file name
+    save_folder, file_name = os.path.split(h5_path)
+    fn = os.path.splitext(file_name)[0]
+   
+    # save english text
+    txt_eng_path = os.path.join(save_folder, f'{fn}_eng.txt')
+    if os.path.isfile(txt_eng_path):
+        os.remove(txt_eng_path)
+    with open(txt_eng_path, 'w', encoding='utf-8') as f_eng:
+        f_eng.write(get_text_for_printing_eng(h5_path=h5_path))
+    
+    # save chinese text
+    txt_chs_path = os.path.join(save_folder, f'{fn}_chs.txt')
+    if os.path.isfile(txt_chs_path):
+        os.remove(txt_eng_path)
+    with open(txt_chs_path, 'w', encoding='utf-8') as f_chs:
+        f_chs.write(get_text_for_printing_chs(h5_path=h5_path))
 
 
 if __name__ == "__main__":
@@ -94,7 +115,7 @@ if __name__ == "__main__":
     # translate_h5_file(h5_path)
 
     h5_path = r"G:\temp\2023-04-21_space.com.h5"
-    print(get_text_for_printing_eng(h5_path=h5_path))
+    # print(get_text_for_printing_eng(h5_path=h5_path))
     # print(get_text_for_printing_chs(h5_path=h5_path))
 
 
