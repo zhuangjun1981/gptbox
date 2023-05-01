@@ -1,4 +1,11 @@
 api_key.txt
 
-*.pyc
-__pychache__
+.pyc
+__pycache__/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+
+.ipynb_checkpoints/
+.ipynb
