@@ -126,17 +126,17 @@ def get_clean_text_spacedotcom(url):
             pi += 1
             continue
         
-        if ptxt.startswith('—  '):
+        if ptxt.startswith('—'):
             pi += 1
             continue
             
-        if ptxt.startswith('— '):
-            pi += 1
-            continue
+        # if ptxt.startswith('— '):
+        #     pi += 1
+        #     continue
             
-        if p.find('em') is not None:
-            pi += 1
-            continue
+        # if p.find('em') is not None:
+        #     pi += 1
+        #     continue
                 
         article.append(ptxt)
         pi += 1
@@ -145,6 +145,14 @@ def get_clean_text_spacedotcom(url):
     text_dict['author_bio'] = article.pop()
 
     article = '\n'.join([a for a in article if a])
+    article = article.replace('\xa0', ' ')
+    
+    text_to_remove = ["Follow us on Twitter @Spacedotcom and on Facebook.",
+                      "Join our Space Forums to keep talking space on the latest missions, night sky and more! And if you have a news tip, correction or comment, let us know at: community@space.com."]
+
+    for text in text_to_remove:
+        article = article.replace(text, "")
+
     text_dict['body'] = article
 
     # print('\n\n')
