@@ -2,6 +2,7 @@ api_key.txt
 
 .pyc
 __pycache__/
+sandbox/
 
 # Jupyter Notebook
 .ipynb_checkpoints
