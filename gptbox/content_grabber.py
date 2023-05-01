@@ -45,7 +45,7 @@ def get_clean_text_spacedotcom(url):
             title : title of the article
             author : author of the article
             author_bio : a paragraph of author bio
-            description : a short description of the article
+            subtitle : a short description of the article
             title_image_url : url of the title image
             published_time : publication time of the article
                 format should always be "yyyy-mm-dd-hh-mm-ss"
@@ -84,7 +84,7 @@ def get_clean_text_spacedotcom(url):
             text_dict['author'] = meta.get('content').strip()
             
         if meta.get('property') == 'og:description':
-            text_dict['description'] = meta.get('content').strip()
+            text_dict['subtitle'] = meta.get('content').strip()
             
         if meta.get('property') == 'og:url':
             text_dict['url'] = meta.get('content').strip()

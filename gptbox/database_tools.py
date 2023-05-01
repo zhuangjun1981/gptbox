@@ -1,5 +1,6 @@
-import os, h5py
+import os, h5py, json
 import content_grabber as cg
+import translate as ts
 
 def save_html_content(article, folder):
     """
@@ -35,10 +36,47 @@ def get_text_for_printing_eng(h5_path):
     txt += f'\nPublished at {h5f["published_time"][()].decode()}'
     txt += f'\n\nAuthor: {h5f["author"][()].decode()}'
     txt += f'\n{h5f["author_bio"][()].decode()}'
-    txt += f'\n\n{h5f["description"][()].decode()}'
+    txt += f'\n\nSubtitle: {h5f["subtitle"][()].decode()}'
+    txt += f'\n\nSummary (ChatGPT generated): {h5f["summary"][()].decode()}'
     txt += f'\n\n{h5f["body"][()].decode()}'
 
     return txt
+
+
+def get_text_for_printing_chs(h5_path):
+
+    h5f = h5py.File(h5_path, 'r')
+
+    txt = ''
+    txt += f'{h5f["title_chinese"][()].decode()}'
+    txt += f'\n{h5f["url"][()].decode()}'
+    txt += f'\n发布于 {h5f["published_time"][()].decode()}'
+    txt += f'\n\n作者: {h5f["author"][()].decode()}'
+    txt += f'\n{h5f["author_bio_chinese"][()].decode()}'
+    txt += f'\n\n副标题: {h5f["subtitle_chinese"][()].decode()}'
+    txt += f'\n\n摘要 (ChatGTP 生成): {h5f["summary_chinese"][()].decode()}'
+    txt += f'\n\n{h5f["body_chinese"][()].decode()}'
+
+    return txt
+
+
+def translate_h5_file(h5_path, **kwargs):
+
+    ff = h5py.File(h5_path, 'a')
+
+    for key in ["title", "subtitle", "author_bio"]:
+        prompt = ts.get_simple_translate_prompt(txt=ff[key][()].decode())
+        ff.create_dataset(f'{key}_chinese', 
+                          data=ts.translate(prompt=prompt,
+                                            **kwargs))
+    
+    prompt_body = ts.get_body_prompt(body=ff["body"][()].decode())
+    resp_body = ts.translate(prompt=prompt_body, **kwargs)
+    resp_body = json.loads(resp_body)
+    for key, value in resp_body.items():
+        ff.create_dataset(key, data=value)
+    
+    ff.close()
 
 
 if __name__ == "__main__":
@@ -52,7 +90,12 @@ if __name__ == "__main__":
     # article.get_text_from_html(url=url)
     # save_html_content(article=article, folder=save_folder)
 
-    h5_path = r"D:\temp\2023-04-21_space.com.h5"
+    # h5_path = r"G:\temp\2023-04-21_space.com.h5"
+    # translate_h5_file(h5_path)
+
+    h5_path = r"G:\temp\2023-04-21_space.com.h5"
     print(get_text_for_printing_eng(h5_path=h5_path))
+    # print(get_text_for_printing_chs(h5_path=h5_path))
+
 
 
