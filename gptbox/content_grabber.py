@@ -22,10 +22,12 @@ def detect_domain(url):
         'space.com'
     """
 
-    padded_url = url + ' ' * 25
+    padded_url = url + ' ' * 40
 
-    if 'space.com' in padded_url[:25]:
+    if 'space.com' in padded_url[:40]:
         domain = 'space.com'
+    elif 'spacenews.com' in padded_url[:40]:
+        domain = 'spacenews.com'
     else:
         print('Cannot find recognizable domain from URL.')
         domain = None
@@ -142,10 +144,10 @@ def get_clean_text_spacedotcom(url):
         pi += 1
         
     article = [a.replace(" (opens in new tab)", "") for a in article]
+    article = [a.replace("\xa0", " ") for a in article]
     text_dict['author_bio'] = article.pop()
 
     article = '\n'.join([a for a in article if a])
-    article = article.replace('\xa0', ' ')
     
     text_to_remove = ["Follow us on Twitter @Spacedotcom and on Facebook.",
                       "Join our Space Forums to keep talking space on the latest missions, night sky and more! And if you have a news tip, correction or comment, let us know at: community@space.com."]
@@ -161,6 +163,89 @@ def get_clean_text_spacedotcom(url):
 
     return text_dict
     
+
+def get_clean_text_spacenews(url):
+    """
+    Extract useful text from a spacenews.com url.
+
+    :param url: string, url of the webpage
+    :return text_dict: dictionary, each value is a string
+        keys:
+            url : url of the webpage
+            domain : domain of the webpage
+            title : title of the article
+            author : author of the article
+            author_bio : a paragraph of author bio
+            subtitle : a short description of the article
+            title_image_url : url of the title image
+            published_time : publication time of the article
+                format should always be "yyyy-mm-dd-hh-mm-ss"
+            body : body text of the article
+    """
+
+    domain = detect_domain(url=url)
+    if domain != 'spacenews.com':
+        print(f'Cannot recognize domain: {domain}. Returning None.')
+        return None
+    
+    text_dict = {}
+    text_dict['domain'] = domain
+    
+    soup = parse_html(url=url)
+
+    # useful info from meta
+    metas = soup.find('head').find_all('meta')
+    
+    for meta in metas:
+        if meta.get('property') == 'og:title':
+            text_dict['title'] = meta.get('content').strip()
+
+        if meta.get('name') == 'author':
+            text_dict['author'] = meta.get('content').strip()
+            
+        if meta.get('property') == 'og:description':
+            text_dict['subtitle'] = meta.get('content').strip()
+            
+        if meta.get('property') == 'og:url':
+            text_dict['url'] = meta.get('content').strip()
+        
+        if meta.get('property') == 'og:image':
+            text_dict['title_image_url'] = meta.get('content').strip()
+            
+        if meta.get('property') == 'article:published_time':
+
+            pt = meta.get('content').strip()
+            pt = pt.replace('T', '-')
+            pt = pt.replace(':', '-')
+            pt = pt[:19]
+
+            text_dict['published_time'] = pt
+    
+    article = []
+    author_bio = []
+    divs = soup.find_all('div')
+    for div in divs:
+        if div.get('class') is not None:
+            if div.get('class')[0] == "entry-content":
+                ps = div.find_all('p')
+                for p in ps:
+                    article.append(p.get_text().strip())
+                
+            elif div.get('class')[0] == "author-bio-text":
+                for p in div.find_all('p'):
+                    for a in p.find_all('a'):
+                        a.decompose()
+                    author_bio.append(p.get_text().strip())
+
+    article = '\n'.join([a for a in article if a])
+    author_bio = '\n'.join([a for a in author_bio if a])
+    author_bio = '\n'.join([a.strip() for a in author_bio.split('\n') if a.strip()])
+    
+    text_dict['body'] = article
+    text_dict['author_bio'] = author_bio
+
+    return text_dict
+
 
 def download_image(url, folder, filename=None):
     """
@@ -202,6 +287,8 @@ class ContentGrabber(object):
 
             if self.domain == 'space.com':
                 self.clean_text_dict = get_clean_text_spacedotcom(url=url)
+            elif self.domain == 'spacenews.com':
+                self.clean_text_dict = get_clean_text_spacenews(url=url)
             else:
                 self.clean_text_dict = None
                 print(f'Cannot recognize domain {self.domain}. Set self.clean_text_dict to be None.')
