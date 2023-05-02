@@ -7,9 +7,10 @@ import database_tools as dt
 
 
 save_folder = r"G:\temp"
-url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
+# url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
 # url = "https://www.space.com/nasa-voyager-mission-engineers-documentary"
 # url = "https://www.space.com/voyager-1-45-year-launch-anniversary"
+url = "https://spacenews.com/esa-troubleshooting-juice-radar-antenna/"
 
 article = cg.ContentGrabber()
 article.get_text_from_html(url=url)
