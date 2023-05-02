@@ -22,12 +22,13 @@ def run_gpt(prompt, model="gpt-3.5-turbo", **kwargs):
 def get_simple_translate_prompt(txt):
 
     prompt = f"""
-    Translate the text between the three backticks into Chinese. \
-But but do not translate names, locations, and other proper \
-nouns, such as Startbase, Texas, Port Isabel, etc. \
-Do not include backticks in the response. 
+Translate the text between the three backticks into Chinese. \
+New line for each paragraph. \
+Keep names and locations as English. \
+Do not include backticks in the response. \
+Do not mark the translated text with double quotations. 
 
-    ```{txt}```
+```{txt}```
     """
     return prompt
 
@@ -46,8 +47,7 @@ Summarize the text between the three backticks into 50 words.
     
 #     prompt = f"""
 #     1. Translate the text between the triple backticks into Simplified Chinese in \
-# a semi-formal tone but do not translate names, locations, and other proper \
-# nouns, such as Startbase, Texas, Port Isabel, etc.
+# a casual tone. Keep names and locations as English. New line for each paragraph.
 #     2. Summarize the text between the three backticks into 50 words as summary.
 #     3. Translate the summary generated in step 2 into Chinese, but keep names, \
 # addresses, and other proper nouns as English. 

@@ -51,7 +51,7 @@ def get_text_for_printing_chs(h5_path):
 
     txt = ''
     txt += f'{h5f["title_chinese"][()].decode()}'
-    txt += f'\n{h5f["url"][()].decode()}'
+    txt += f'\n原文链接: {h5f["url"][()].decode()}'
     txt += f'\n发布于 {h5f["published_time"][()].decode()}'
     txt += f'\n\n作者: {h5f["author"][()].decode()}'
     txt += f'\n{h5f["author_bio_chinese"][()].decode()}'
