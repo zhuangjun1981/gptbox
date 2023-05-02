@@ -56,8 +56,8 @@ def get_text_for_printing_chs(h5_path):
     txt += f'\n\n作者: {h5f["author"][()].decode()}'
     txt += f'\n{h5f["author_bio_chinese"][()].decode()}'
     txt += f'\n\n副标题: {h5f["subtitle_chinese"][()].decode()}'
-    txt += f'\n\n摘要 (ChatGPT 生成): {h5f["summary_chinese"][()].decode()}'
-    txt += f'\n\n正文 (主要为ChatGPT 翻译): \n{h5f["body_chinese"][()].decode()}'
+    txt += f'\n\n摘要 (ChatGPT生成): {h5f["summary_chinese"][()].decode()}'
+    txt += f'\n\n正文 (主要为ChatGPT翻译): \n{h5f["body_chinese"][()].decode()}'
 
     return txt
 
