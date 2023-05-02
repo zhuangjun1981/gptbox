@@ -24,9 +24,7 @@ def get_simple_translate_prompt(txt):
     prompt = f"""
 Translate the text between the three backticks into Chinese. \
 New line for each paragraph. \
-Keep names and locations as English. \
-Do not include backticks in the response. \
-Do not mark the translated text with double quotations. 
+Keep names and locations as English. 
 
 ```{txt}```
     """
