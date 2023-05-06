@@ -35,133 +35,133 @@ def detect_domain(url):
     return domain
     
 
-def get_clean_text_spacedotcom(url):
-    """
-    Extract useful text from a space.com url.
+# def get_clean_text_spacedotcom(url):
+#     """
+#     Extract useful text from a space.com url.
 
-    :param url: string, url of the webpage
-    :return text_dict: dictionary, each value is a string
-        keys:
-            url : url of the webpage
-            domain : domain of the webpage
-            title : title of the article
-            author : author of the article
-            author_bio : a paragraph of author bio
-            subtitle : a short description of the article
-            title_image_url : url of the title image
-            published_time : publication time of the article
-                format should always be "yyyy-mm-dd-hh-mm-ss"
-            body : body text of the article
-    """
+#     :param url: string, url of the webpage
+#     :return text_dict: dictionary, each value is a string
+#         keys:
+#             url : url of the webpage
+#             domain : domain of the webpage
+#             title : title of the article
+#             author : author of the article
+#             author_bio : a paragraph of author bio
+#             subtitle : a short description of the article
+#             title_image_url : url of the title image
+#             published_time : publication time of the article
+#                 format should always be "yyyy-mm-dd-hh-mm-ss"
+#             body : body text of the article
+#     """
 
-    domain = detect_domain(url=url)
-    if domain != 'space.com':
-        print(f'Cannot recognize domain: {domain}. Returning None.')
-        return None
+#     domain = detect_domain(url=url)
+#     if domain != 'space.com':
+#         print(f'Cannot recognize domain: {domain}. Returning None.')
+#         return None
     
-    soup = parse_html(url=url)
+#     soup = parse_html(url=url)
 
-    # Find all unwanted elements such as ads, links, buttons etc.
-    unwanted_tags = ['aside', 'script', 'style', 'footer']
-    for tag in unwanted_tags:
-        for element in soup.find_all(tag):
-            element.decompose()
+#     # Find all unwanted elements such as ads, links, buttons etc.
+#     unwanted_tags = ['aside', 'script', 'style', 'footer']
+#     for tag in unwanted_tags:
+#         for element in soup.find_all(tag):
+#             element.decompose()
             
-    for element in soup.find_all('div'):
-        if element.get('class') is not None:
-            if element.get('class')[0] in ['more-about__cardBody']:
-                element.decompose()
+#     for element in soup.find_all('div'):
+#         if element.get('class') is not None:
+#             if element.get('class')[0] in ['more-about__cardBody']:
+#                 element.decompose()
 
-    text_dict = {}
-    text_dict['domain'] = domain
+#     text_dict = {}
+#     text_dict['domain'] = domain
 
-    # useful info from meta
-    metas = soup.find('head').find_all('meta')
+#     # useful info from meta
+#     metas = soup.find('head').find_all('meta')
 
-    for meta in metas:
-        if meta.get('property') == 'og:title':
-            text_dict['title'] = meta.get('content').strip()
+#     for meta in metas:
+#         if meta.get('property') == 'og:title':
+#             text_dict['title'] = meta.get('content').strip()
 
-        if meta.get('name') == 'parsely-author':
-            text_dict['author'] = meta.get('content').strip()
+#         if meta.get('name') == 'parsely-author':
+#             text_dict['author'] = meta.get('content').strip()
             
-        if meta.get('property') == 'og:description':
-            text_dict['subtitle'] = meta.get('content').strip()
+#         if meta.get('property') == 'og:description':
+#             text_dict['subtitle'] = meta.get('content').strip()
             
-        if meta.get('property') == 'og:url':
-            text_dict['url'] = meta.get('content').strip()
+#         if meta.get('property') == 'og:url':
+#             text_dict['url'] = meta.get('content').strip()
         
-        if meta.get('property') == 'og:image':
-            text_dict['title_image_url'] = meta.get('content').strip()
+#         if meta.get('property') == 'og:image':
+#             text_dict['title_image_url'] = meta.get('content').strip()
             
-        if meta.get('property') == 'article:published_time':
+#         if meta.get('property') == 'article:published_time':
 
-            pt = meta.get('content').strip()
-            pt = pt.replace('T', '-')
-            pt = pt.replace(':', '-')
-            pt = pt.replace('Z', '')
+#             pt = meta.get('content').strip()
+#             pt = pt.replace('T', '-')
+#             pt = pt.replace(':', '-')
+#             pt = pt.replace('Z', '')
 
-            text_dict['published_time'] = pt
+#             text_dict['published_time'] = pt
 
-    # useful stuff from p        
-    ps = soup.find_all('p')
-    # [print(p) for p in ps]
+#     # useful stuff from p        
+#     ps = soup.find_all('p')
+#     # [print(p) for p in ps]
 
-    article = []
-    pi = 0
-    while pi < len(ps):
+#     article = []
+#     pi = 0
+#     while pi < len(ps):
         
-        p = ps[pi]
-        ptxt = p.get_text().strip()
+#         p = ps[pi]
+#         ptxt = p.get_text().strip()
         
-        if p.get('class') is not None:
-            if p.get('class')[0] in ['affiliate-disclaimer__copy', 'strapline',
-                                    'newsletter-form__strapline', 'article__byline']:
-                pi += 1
-                continue
+#         if p.get('class') is not None:
+#             if p.get('class')[0] in ['affiliate-disclaimer__copy', 'strapline',
+#                                     'newsletter-form__strapline', 'article__byline']:
+#                 pi += 1
+#                 continue
             
-        if p.find('strong') is not None: # remove the section starts with "related"
-            pi += 1
-            continue
+#         if p.find('strong') is not None: # remove the section starts with "related"
+#             pi += 1
+#             continue
             
-        if p.get('dir') == 'ltr': # remove twitter insert
-            pi += 1
-            continue
+#         if p.get('dir') == 'ltr': # remove twitter insert
+#             pi += 1
+#             continue
         
-        if ptxt.startswith('—'):
-            pi += 1
-            continue
+#         if ptxt.startswith('—'):
+#             pi += 1
+#             continue
             
-        # if ptxt.startswith('— '):
-        #     pi += 1
-        #     continue
+#         # if ptxt.startswith('— '):
+#         #     pi += 1
+#         #     continue
             
-        # if p.find('em') is not None:
-        #     pi += 1
-        #     continue
+#         # if p.find('em') is not None:
+#         #     pi += 1
+#         #     continue
                 
-        article.append(ptxt)
-        pi += 1
+#         article.append(ptxt)
+#         pi += 1
         
-    article = [a.replace(" (opens in new tab)", "") for a in article]
-    article = [a.replace("\xa0", " ") for a in article]
-    text_dict['author_bio'] = article.pop()
+#     article = [a.replace(" (opens in new tab)", "") for a in article]
+#     article = [a.replace("\xa0", " ") for a in article]
+#     text_dict['author_bio'] = article.pop()
 
-    article = '\n'.join([a for a in article if a])
+#     article = '\n'.join([a for a in article if a])
     
-    text_to_remove = ["Follow us on Twitter @Spacedotcom and on Facebook.",
-                      "Join our Space Forums to keep talking space on the latest missions, night sky and more! And if you have a news tip, correction or comment, let us know at: community@space.com."]
+#     text_to_remove = ["Follow us on Twitter @Spacedotcom and on Facebook.",
+#                       "Join our Space Forums to keep talking space on the latest missions, night sky and more! And if you have a news tip, correction or comment, let us know at: community@space.com."]
 
-    for text in text_to_remove:
-        article = article.replace(text, "")
+#     for text in text_to_remove:
+#         article = article.replace(text, "")
 
-    text_dict['body'] = article
+#     text_dict['body'] = article
 
-    # print('\n\n')
-    # for key, value in stuff.items():
-    #     print(f'{key}: {value}')
+#     # print('\n\n')
+#     # for key, value in stuff.items():
+#     #     print(f'{key}: {value}')
 
-    return text_dict
+#     return text_dict
     
 
 def get_clean_text_spacedotcom2(url):
@@ -262,6 +262,7 @@ def get_clean_text_spacedotcom2(url):
     return text_dict
 
 
+# todo: update this method
 def get_clean_text_spacenews(url):
     """
     Extract useful text from a spacenews.com url.
@@ -384,7 +385,7 @@ class ContentGrabber(object):
         if self.domain is not None:
 
             if self.domain == 'space.com':
-                self.clean_text_dict = get_clean_text_spacedotcom(url=url)
+                self.clean_text_dict = get_clean_text_spacedotcom2(url=url)
             elif self.domain == 'spacenews.com':
                 self.clean_text_dict = get_clean_text_spacenews(url=url)
             else:
