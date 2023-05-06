@@ -22,40 +22,21 @@ def run_gpt(prompt, model="gpt-3.5-turbo", **kwargs):
 def get_simple_translate_prompt(txt):
 
     prompt = f"""
-Translate the text between the three backticks into Chinese. \
-New line for each paragraph. \
-Keep names and locations as English. 
+Translate the text delimited with triple backticks into Chinese. \
+Make a new line for each paragraph in the translation. \
 
 ```{txt}```
-    """
+"""
     return prompt
 
 def get_summary_prompt(txt):
 
     prompt = f"""
-Summarize the text between the three backticks into 50 words.
+Summarize the text delimited with triple backticks into 50 words.
 
 ```{txt}```
-    """
-
+"""
     return prompt
-
-
-# def get_body_prompt(body):
-    
-#     prompt = f"""
-#     1. Translate the text between the triple backticks into Simplified Chinese in \
-# a casual tone. Keep names and locations as English. New line for each paragraph.
-#     2. Summarize the text between the three backticks into 50 words as summary.
-#     3. Translate the summary generated in step 2 into Chinese, but keep names, \
-# addresses, and other proper nouns as English. 
-
-# Retrun the results as json format with keys: body_chinese, summary, summary_chinese
-
-#     ```{body}```
-#     """
-
-#     return prompt
 
 
 if __name__ ==  '__main__':
