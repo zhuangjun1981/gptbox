@@ -1,4 +1,4 @@
-import os
+import os, json
 from urllib import request
 from bs4 import BeautifulSoup
 
@@ -163,6 +163,104 @@ def get_clean_text_spacedotcom(url):
 
     return text_dict
     
+
+def get_clean_text_spacedotcom2(url):
+    """
+    Extract useful text from a space.com url.
+
+    :param url: string, url of the webpage
+    :return text_dict: dictionary
+        keys:
+            url : str, url of the webpage
+            domain : str, domain of the webpage
+            title : str, title of the article
+            author : str, author of the article
+            author_bio : str, a paragraph of author bio
+            author_url : str, url to the author page
+            image_urls : list of str, urls of all article images
+                the first should be the title image
+            published_time : publication time of the article
+                format should always be "yyyy-mm-dd-hh-mm-ss"
+            body_list : list of str, body text of the article
+                at the location of each article image the item should be
+                    [image# <image_id>]figure caption
+                at the location of each sub-headline the item should be
+                    [headline# <headline_size>]headline text
+    """
+
+    def clean_text(txt):
+        """
+        text cleaning specific to space.com
+        """
+        text_to_remove = ["Follow us on Twitter @Spacedotcom and on Facebook.",
+                      " (opens in new tab)",
+                      "Join our Space Forums to keep talking space on the latest missions, night sky and more! And if you have a news tip, correction or comment, let us know at: community@space.com."]
+
+        for tor in text_to_remove:
+            txt = txt.replace(tor, "")
+
+        txt = txt.replace("\xa0", " ")
+        txt = txt.replace("&nbsp;", " ")
+        txt = txt.replace("\'", "'")
+        return txt.strip()
+    
+    domain = detect_domain(url=url)
+    if domain != 'space.com':
+        print(f'Cannot recognize domain: {domain}. Returning None.')
+        return None
+    
+    soup = parse_html(url=url)
+
+    text_dict = {}
+    text_dict['domain'] = domain
+    text_dict['body'] = []
+    text_dict['img_urls'] = []
+    img_id = 0
+    
+    # get meta dictionary from embedded json text
+    json_text = [scr for scr in soup.find_all('script') if scr.get("type")=="application/ld+json"][0]
+    json_dict = json.loads(json_text.get_text())
+    text_dict['title'] = json_dict["headline"]
+    text_dict['url'] = json_dict["url"]
+    
+    try:
+        text_dict['author'] = json_dict["author"]["name"]
+        text_dict['author_url'] = json_dict["author"]["url"]
+        text_dict['author_bio'] = clean_text(json_dict["author"]["description"])
+    except TypeError:
+        text_dict['author'] = json_dict["author"][0]["name"]
+        text_dict['author_url'] = json_dict["author"][0]["url"]
+        text_dict['author_bio'] = clean_text(json_dict["author"][0]["description"])
+
+    text_dict['img_urls'].append(json_dict["image"]["url"])
+    text_dict['published_time'] = json_dict["datePublished"][0:19]
+
+    # add title figure caption into body
+    title_fig_cap = soup.find('figcaption')
+    text_dict["body"].append(f'[image#{img_id:02d}]{clean_text(title_fig_cap.get_text())}')
+    img_id += 1
+
+    # get other body text, subheadline, and image text
+    body = soup.find_all('div')
+    body = [b for b in body if b.get('id')=='article-body'][0]
+    for chi in body.children:
+
+        if chi.name == 'p':
+            text_dict['body'].append(clean_text(chi.get_text()))
+        elif str(chi.name).startswith('h'):
+            txt = clean_text(chi.get_text())
+            hsize = str(chi.name)[1]
+            text_dict['body'].append(f'[headline#{hsize}]{txt}')
+        elif chi.name == 'a':
+            fig = chi.find('figure')
+            pic = fig.find('picture')
+            text_dict['img_urls'].append(pic.find_all('source')[1].get('data-srcset').split(',')[-1].split(" ")[1])
+            caption = clean_text(fig.find('figcaption').get_text())
+            text_dict['body'].append(f'[image#{img_id:02d}]{caption}')
+            img_id += 1
+    
+    return text_dict
+
 
 def get_clean_text_spacenews(url):
     """
