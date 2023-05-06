@@ -49,9 +49,20 @@ def get_text_for_printing_eng(h5_path):
     return txt
 
 
+def get_body_text_eng(h5_path):
+    h5f = h5py.File(h5_path, 'r')
+    txt = ''
+    for para in h5f['body']:
+        para_txt = para.decode()
+        if not txt.startswith('['):
+            txt += f'{para_txt}/n'
+    h5f.close()
+    return txt
+
+
 def get_text_for_printing_chs(h5_path):
     h5f = h5py.File(h5_path, 'r')
-    txt = h5f['translate_chinese'][()].decode()
+    txt = h5f['chinese_translate'][()].decode()
     h5f.close()
     return txt
 
@@ -60,8 +71,8 @@ def translate_h5_file(h5_path, **kwargs):
 
     ff = h5py.File(h5_path, 'a')
 
-    body = ff['body'][()].decode()
-    prompt_s = ts.get_summary_prompt(body)
+    body_text = get_body_text_eng(h5_path=h5_path)
+    prompt_s = ts.get_summary_prompt(body_text)
     ff.create_dataset('summary', data=ts.run_gpt(prompt=prompt_s, **kwargs))
 
     txt_eng = get_text_for_printing_eng(h5_path)

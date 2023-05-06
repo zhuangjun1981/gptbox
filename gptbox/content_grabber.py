@@ -214,7 +214,7 @@ def get_clean_text_spacedotcom2(url):
     text_dict = {}
     text_dict['domain'] = domain
     text_dict['body'] = []
-    text_dict['img_urls'] = []
+    text_dict['image_urls'] = []
     img_id = 0
     
     # get meta dictionary from embedded json text
@@ -232,7 +232,7 @@ def get_clean_text_spacedotcom2(url):
         text_dict['author_url'] = json_dict["author"][0]["url"]
         text_dict['author_bio'] = clean_text(json_dict["author"][0]["description"])
 
-    text_dict['img_urls'].append(json_dict["image"]["url"])
+    text_dict['image_urls'].append(json_dict["image"]["url"])
     text_dict['published_time'] = json_dict["datePublished"][0:19]
 
     # add title figure caption into body
@@ -246,7 +246,9 @@ def get_clean_text_spacedotcom2(url):
     for chi in body.children:
 
         if chi.name == 'p':
-            text_dict['body'].append(clean_text(chi.get_text()))
+            chi_txt = clean_text(chi.get_text())
+            if not chi_txt.startswith('Related:'):
+                text_dict['body'].append(chi_txt)
         elif str(chi.name).startswith('h'):
             txt = clean_text(chi.get_text())
             hsize = str(chi.name)[1]
@@ -254,7 +256,7 @@ def get_clean_text_spacedotcom2(url):
         elif chi.name == 'a':
             fig = chi.find('figure')
             pic = fig.find('picture')
-            text_dict['img_urls'].append(pic.find_all('source')[1].get('data-srcset').split(',')[-1].split(" ")[1])
+            text_dict['image_urls'].append(pic.find_all('source')[1].get('data-srcset').split(',')[-1].split(" ")[1])
             caption = clean_text(fig.find('figcaption').get_text())
             text_dict['body'].append(f'[image#{img_id:02d}]{caption}')
             img_id += 1
