@@ -2,27 +2,27 @@ import os, h5py, json
 import content_grabber as cg
 import translate as ts
 
-def save_html_content(article, folder):
+def save_html_content(text_dict, folder):
     """
     :params article: content_grabber.ContentGrabber object
     """
     
-    pub_time = article.clean_text_dict['published_time']
-    domain = article.clean_text_dict['domain']
-    img_urls = article.clean_text_dict['image_urls']
+    pub_time = text_dict['published_time']
+    domain = text_dict['domain']
     fn = f'{pub_time[0:10]}_{domain}'
 
     h5_path = os.path.join(folder, f'{fn}.h5')
     # print(h5_path)
 
-    # save title image
+    # save images
+    img_urls = text_dict['image_urls']
     for img_i, img_url in enumerate(img_urls):
         cg.download_image(url=img_url, folder=folder, filename=f'{fn}_img{img_i:02d}')
 
     if os.path.isfile(h5_path):
         os.remove(h5_path)
     h5f = h5py.File(h5_path, 'a')
-    for k, v in article.clean_text_dict.items():
+    for k, v in text_dict.items():
         h5f.create_dataset(k, data=v)
     h5f.close()
 
@@ -38,6 +38,7 @@ def get_text_for_printing_eng(h5_path):
     txt += f'\n{h5f["url"][()].decode()}'
     txt += f'\nPublished at {h5f["published_time"][()].decode()}'
     txt += f'\n\nAuthor: {h5f["author"][()].decode()}'
+    txt += f'\n{h5f["author_url"][()].decode()}'
     txt += f'\n{h5f["author_bio"][()].decode()}'
     txt += f'\n\nSummary (ChatGPT generated): {h5f["summary"][()].decode()}'
     
