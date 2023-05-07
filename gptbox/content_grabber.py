@@ -123,8 +123,11 @@ def get_clean_text_spacedotcom(url):
             txt = clean_text(chi.get_text())
             hsize = str(chi.name)[1]
             text_dict['body'].append(f'[headline#{hsize}]{txt}')
-        elif chi.name == 'a':
-            fig = chi.find('figure')
+        elif (chi.find('picture') is not None) and (chi.find('picture') != -1):
+            if chi.name == 'figure':
+                fig = chi
+            else:
+                fig = chi.find('figure')
             pic = fig.find('picture')
             text_dict['image_urls'].append(pic.find_all('source')[1].get('data-srcset').split(',')[-1].split(" ")[1])
             caption = clean_text(fig.find('figcaption').get_text())
