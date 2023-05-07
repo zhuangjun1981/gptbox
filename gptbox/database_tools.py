@@ -55,7 +55,7 @@ def get_body_text_eng(h5_path):
     txt = ''
     for para in h5f['body']:
         para_txt = para.decode()
-        if not txt.startswith('['):
+        if not para_txt.startswith('['):
             txt += f'{para_txt}/n'
     h5f.close()
     return txt
