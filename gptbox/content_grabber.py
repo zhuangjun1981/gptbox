@@ -183,6 +183,7 @@ def get_clean_text_spacenews(url):
     img_id = 0
     quote_id = 0
     text_dict = {}
+    text_dict['domain'] = domain
     text_dict['image_urls'] = []
     text_dict['body'] = []
         
