@@ -23,6 +23,7 @@ def get_simple_translate_prompt(txt):
 
     prompt = f"""
 Translate the text delimited with triple backticks into Chinese. \
+Keep the text delimited in square brackets. \
 Make a new line for each paragraph in the translation. \
 
 ```{txt}```

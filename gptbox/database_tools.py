@@ -119,9 +119,16 @@ if __name__ == "__main__":
     # h5_path = r"G:\temp\2023-04-21_space.com.h5"
     # translate_h5_file(h5_path)
 
-    h5_path = r"G:\temp\2023-04-21_space.com.h5"
+    # h5_path = r"G:\temp\2023-04-21_space.com.h5"
     # print(get_text_for_printing_eng(h5_path=h5_path))
     # print(get_text_for_printing_chs(h5_path=h5_path))
+
+    h5_path = r"G:\temp\2023-05-08_spacenews.com.h5"
+    txt_eng = get_text_for_printing_eng(h5_path=h5_path)
+    blocks = ts.break_text_into_blocks(text=txt_eng, max_len=1500)
+    [print(f'\n\n\n{b}') for b in blocks]
+
+    
 
 
 
