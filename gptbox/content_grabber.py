@@ -143,18 +143,24 @@ def get_clean_text_spacenews(url):
     Extract useful text from a spacenews.com url.
 
     :param url: string, url of the webpage
-    :return text_dict: dictionary, each value is a string
+    :return text_dict: dictionary
         keys:
-            url : url of the webpage
-            domain : domain of the webpage
-            title : title of the article
-            author : author of the article
-            author_bio : a paragraph of author bio
-            subtitle : a short description of the article
-            title_image_url : url of the title image
+            url : str, url of the webpage
+            domain : str, domain of the webpage
+            title : str, title of the article
+            author : str, author of the article
+            author_bio : str, a paragraph of author bio
+            author_url : str, url to the author page
+            image_urls : list of str, urls of all article images
+                the first should be the title image
             published_time : publication time of the article
-                format should always be "yyyy-mm-dd-hh-mm-ss"
-            body : body text of the article
+            body : list of str, body text of the article
+                at the location of each article image the item should be
+                    [image#<image_id>]figure caption
+                at the location of each sub-headline the item should be
+                    [headline#<headline_size>]headline text
+                at the location of each quote the item should be
+                    [quote#<quote_id>]quote
     """
 
     domain = detect_domain(url=url)
@@ -162,61 +168,69 @@ def get_clean_text_spacenews(url):
         print(f'Cannot recognize domain: {domain}. Returning None.')
         return None
     
-    text_dict = {}
-    text_dict['domain'] = domain
+    def clean_text(txt):
+        """
+        text cleaning specific to space.com
+        """
+        text_to_remove = []
+        for tor in text_to_remove:
+            txt = txt.replace(tor, "")
+
+        txt = txt.replace("\xa0", " ")
+        txt = txt.replace("&nbsp;", " ")
+        return txt.strip()
     
+    img_id = 0
+    quote_id = 0
+    text_dict = {}
+    text_dict['image_urls'] = []
+    text_dict['body'] = []
+        
     soup = parse_html(url=url)
 
-    # useful info from meta
-    metas = soup.find('head').find_all('meta')
+    json_text = [j for j in soup.find_all('script') if j.get('type')=='application/ld+json'][0]
+    meta_dict = json.loads(json_text.get_text())['@graph']
     
-    for meta in metas:
-        if meta.get('property') == 'og:title':
-            text_dict['title'] = meta.get('content').strip()
+    # add meta
+    text_dict['title'] = [d for d in meta_dict if d["@type"]=="Article"][0]["headline"]
+    text_dict['url'] = [d for d in meta_dict if d["@type"]=="Article"][0]["mainEntityOfPage"]["@id"]
+    text_dict['published_time'] = [d for d in meta_dict if d["@type"]=="Article"][0]["datePublished"][0:19]
+    text_dict['author'] = [d for d in meta_dict if d["@type"]=="Person"][0]["name"]
+    text_dict['author_url'] = [d for d in meta_dict if d["@type"]=="Person"][0]["url"]
+    text_dict['author_bio'] = clean_text([d for d in meta_dict if d["@type"]=="Person"][0]["description"])
 
-        if meta.get('name') == 'author':
-            text_dict['author'] = meta.get('content').strip()
-            
-        if meta.get('property') == 'og:description':
-            text_dict['subtitle'] = meta.get('content').strip()
-            
-        if meta.get('property') == 'og:url':
-            text_dict['url'] = meta.get('content').strip()
-        
-        if meta.get('property') == 'og:image':
-            text_dict['title_image_url'] = meta.get('content').strip()
-            
-        if meta.get('property') == 'article:published_time':
-
-            pt = meta.get('content').strip()
-            pt = pt.replace('T', '-')
-            pt = pt.replace(':', '-')
-            pt = pt[:19]
-
-            text_dict['published_time'] = pt
+    # add head figure
+    headfigure = [f for f in soup.find_all('figure') if f.get('class')[0]=='post-thumbnail'][0]
+    text_dict['body'].append(f'[image#{img_id:02d}]{headfigure.find("figcaption").get_text()}')
+    text_dict['image_urls'].append(headfigure.find_all('img')[0].get('src').split('?')[0])
+    img_id += 1
     
-    article = []
-    author_bio = []
-    divs = soup.find_all('div')
-    for div in divs:
-        if div.get('class') is not None:
-            if div.get('class')[0] == "entry-content":
-                ps = div.find_all('p')
-                for p in ps:
-                    article.append(p.get_text().strip())
-                
-            elif div.get('class')[0] == "author-bio-text":
-                for p in div.find_all('p'):
-                    for a in p.find_all('a'):
-                        a.decompose()
-                    author_bio.append(p.get_text().strip())
+    # add main article
+    article = soup.find_all('div')
+    article = [a for a in article if (a.get('class') is not None) and (a.get('class')[0]=='entry-content')][0]
+    for chi in article.children:
 
-    article = '\n'.join([a for a in article if a])
-    author_bio = '\n'.join([a for a in author_bio if a])
-    author_bio = '\n'.join([a.strip() for a in author_bio.split('\n') if a.strip()])
-    
-    text_dict['body'] = article
-    text_dict['author_bio'] = author_bio
+        if chi.name == 'p':
+            chi_txt = clean_text(chi.get_text())
+            if not chi_txt.startswith('Related:'):
+                text_dict['body'].append(chi_txt)
+        elif str(chi.name).startswith('h'):
+            txt = clean_text(chi.get_text())
+            hsize = str(chi.name)[1]
+            text_dict['body'].append(f'[headline#{hsize}]{txt}')
+        elif chi.name == 'figure':
+            if chi.find('blockquote') is not None:
+                if type(chi.find('blockquote')) == list:
+                    quote = chi.find('blockquote')[0]
+                else:
+                    quote = chi.find('blockquote')
+                text_dict['body'].append(f'[quote#{quote_id:02d}]{clean_text(quote.get_text())}')
+                quote_id += 1
+            elif chi.find('img') is not None:
+                text_dict['body'].append(f'[image#{img_id:02d}]{clean_text(chi.find("figcaption").get_text())}')
+                text_dict['image_urls'].append(chi.find('img').get('src').split('?')[0])
+
+                img_id += 1
 
     return text_dict
 
@@ -286,13 +300,11 @@ def get_text_from_html(url):
 
 
 if __name__ == "__main__":
-    url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
-    
-    cg = ContentGrabber()
-    cg.get_text_from_html(url=url)
-    # print(cg.raw_text)
-    [print(f'{k}: {v}') for k, v in cg.clean_text_dict.items()]
 
-    # img_url = cg.clean_text_dict['title_image_url']
-    # download_image(url=img_url, folder=r"D:\temp", filename=None)
+    url0 = "https://www.space.com/spacex-starship-launch-debris-terrifying"
+    url1 = "https://spacenews.com/chinas-mystery-reusable-spaceplane-lands-after-276-days-in-orbit/"
+    url2 = "https://spacenews.com/maxar-pursuing-defense-deals-for-its-new-line-of-small-satellites/"
+
+    print(get_text_from_html(url=url2))
+    
 
