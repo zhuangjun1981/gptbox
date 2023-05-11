@@ -117,7 +117,7 @@ def get_clean_text_spacedotcom(url):
 
         if chi.name == 'p':
             chi_txt = clean_text(chi.get_text())
-            if not chi_txt.startswith('Related:'):
+            if (not chi_txt.startswith('Related:')) and (not chi_txt.startswith('Read more')):
                 text_dict['body'].append(chi_txt)
         elif str(chi.name).startswith('h'):
             txt = clean_text(chi.get_text())
@@ -137,7 +137,6 @@ def get_clean_text_spacedotcom(url):
     return text_dict
 
 
-# todo: update this method
 def get_clean_text_spacenews(url):
     """
     Extract useful text from a spacenews.com url.
