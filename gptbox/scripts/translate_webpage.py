@@ -14,7 +14,8 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/voyager-2"
 # url = "https://www.space.com/why-take-juice-spacecraft-eight-years-reach-jupiter"
 # url = "https://spacenews.com/chinas-mystery-reusable-spaceplane-lands-after-276-days-in-orbit/"
-url = "https://www.space.com/moon-time-lunar-clock-debate-wristwatch"
+# url = "https://www.space.com/moon-time-lunar-clock-debate-wristwatch"
+url = "https://www.space.com/nasa-selects-blue-origin-second-artemis-moon-lander"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
