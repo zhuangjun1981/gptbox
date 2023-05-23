@@ -20,6 +20,7 @@ save_folder = r"D:\temp"
 # url = "https://www.space.com/nasa-selects-blue-origin-second-artemis-moon-lander"
 # url = "https://www.space.com/18377-new-horizons.html"
 url = "https://www.space.com/nasa-juno-jupiter-io-volcanic-moon-images"
+# url = "https://spacenews.com/exploration-upper-stage-unveiled-revolutionary-leap-in-crew-safety-cargo-capacity-and-deep-space-power"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)

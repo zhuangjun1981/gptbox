@@ -197,7 +197,10 @@ def get_clean_text_spacenews(url):
     text_dict['published_time'] = [d for d in meta_dict if d["@type"]=="Article"][0]["datePublished"][0:19]
     text_dict['author'] = [d for d in meta_dict if d["@type"]=="Person"][0]["name"]
     text_dict['author_url'] = [d for d in meta_dict if d["@type"]=="Person"][0]["url"]
-    text_dict['author_bio'] = clean_text([d for d in meta_dict if d["@type"]=="Person"][0]["description"])
+    try:
+        text_dict['author_bio'] = clean_text([d for d in meta_dict if d["@type"]=="Person"][0]["description"])
+    except KeyError:
+        text_dict['author_bio'] = ''
 
     # add head figure
     headfigure = [f for f in soup.find_all('figure') if f.get('class')[0]=='post-thumbnail'][0]
