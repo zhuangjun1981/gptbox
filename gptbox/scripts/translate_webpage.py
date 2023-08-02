@@ -23,7 +23,8 @@ save_folder = r"G:\temp"
 # url = "https://spacenews.com/exploration-upper-stage-unveiled-revolutionary-leap-in-crew-safety-cargo-capacity-and-deep-space-power"
 # url = "https://www.space.com/gravitational-lensing-explained"
 # url = "https://www.space.com/space-solar-power-satellite-beams-energy-1st-time"
-url = "https://www.space.com/euclid-spacecraft-named-after-mathematician"
+# url = "https://www.space.com/euclid-spacecraft-named-after-mathematician"
+url = "https://www.space.com/starlink-satellite-conjunction-increase-threatens-space-sustainability"
 
 
 text_dict = cg.get_text_from_html(url=url)
