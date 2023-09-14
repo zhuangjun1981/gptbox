@@ -6,8 +6,8 @@ import content_grabber as cg
 import database_tools as dt
 
 
-save_folder = r"G:\temp"
-# save_folder = r"D:\temp"
+# save_folder = r"G:\temp"
+save_folder = r"D:\temp"
 
 # url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
 # url = "https://www.space.com/nasa-voyager-mission-engineers-documentary"
@@ -25,7 +25,8 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/space-solar-power-satellite-beams-energy-1st-time"
 # url = "https://www.space.com/euclid-spacecraft-named-after-mathematician"
 # url = "https://www.space.com/starlink-satellite-conjunction-increase-threatens-space-sustainability"
-url = "https://www.space.com/how-long-could-you-survive-in-space-without-spacesuit"
+# url = "https://www.space.com/how-long-could-you-survive-in-space-without-spacesuit"
+url = "https://www.space.com/largest-radio-telescope-smart-maintenance-robots"
 
 
 text_dict = cg.get_text_from_html(url=url)
@@ -35,5 +36,4 @@ dt.translate_h5_file(h5_path=h5_path,
                      model="gpt-3.5-turbo",
                      temperature=0)
 
-# h5_path = r"G:\temp\2022-08-17_space.com.h5"
 dt.save_text_files(h5_path)
