@@ -29,14 +29,16 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/largest-radio-telescope-smart-maintenance-robots"
 # url = "https://www.space.com/soviet-satellite-breaks-apart-after-debris-strike"
 # url = "https://spacenews.com/nasa-starts-reassessment-of-mars-sample-return-architecture/"
-url = "https://www.space.com/china-worlds-largest-underwater-telescope-hunt-for-elusive-ghost-particles"
+# url = "https://www.space.com/china-worlds-largest-underwater-telescope-hunt-for-elusive-ghost-particles"
+url = "https://www.space.com/expert-voice-what-is-an-attosecond"
 
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
 
 dt.translate_h5_file(h5_path=h5_path, 
-                     model="gpt-3.5-turbo",
+                     model="gpt-4-1106-preview",
+                    #  model="gpt-3.5-turbo",
                      temperature=0)
 
 dt.save_text_files(h5_path)
