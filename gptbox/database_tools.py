@@ -68,7 +68,7 @@ def get_text_for_printing_chs(h5_path):
     return txt
 
 
-def translate_h5_file(h5_path, **kwargs):
+def translate_h5_file(h5_path, max_len, **kwargs):
 
     ff = h5py.File(h5_path, 'a')
 
@@ -78,7 +78,7 @@ def translate_h5_file(h5_path, **kwargs):
 
     txt_eng = get_text_for_printing_eng(h5_path)
     # prompt = ts.get_simple_translate_prompt(txt=txt_eng)
-    txt_chs = ts.translate_long_text(text=txt_eng, max_len=1500, **kwargs)
+    txt_chs = ts.translate_long_text(text=txt_eng, max_len=max_len, **kwargs)
     ff.create_dataset('chinese_translate', data=txt_chs)
     
     ff.close()
