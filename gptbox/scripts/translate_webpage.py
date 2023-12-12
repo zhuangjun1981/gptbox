@@ -6,8 +6,8 @@ import content_grabber as cg
 import database_tools as dt
 
 
-save_folder = r"G:\temp"
-# save_folder = r"D:\temp"
+# save_folder = r"G:\temp"
+save_folder = r"D:\temp"
 
 # url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
 # url = "https://www.space.com/nasa-voyager-mission-engineers-documentary"
@@ -33,7 +33,8 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/china-worlds-largest-underwater-telescope-hunt-for-elusive-ghost-particles"
 # url = "https://www.space.com/expert-voice-what-is-an-attosecond"
 # url = "https://www.space.com/spacex-starship-second-test-flight-launch-explodes"
-url = "https://www.space.com/space-force-x-37b-spacex-falcon-heavy-1st-launch-dec-2023"
+# url = "https://www.space.com/space-force-x-37b-spacex-falcon-heavy-1st-launch-dec-2023"
+url = "https://spacenews.com/nasa-slows-down-work-on-mars-sample-return-due-to-budget-uncertainty/"
 
 
 text_dict = cg.get_text_from_html(url=url)
