@@ -34,7 +34,13 @@ save_folder = r"D:\temp"
 # url = "https://www.space.com/expert-voice-what-is-an-attosecond"
 # url = "https://www.space.com/spacex-starship-second-test-flight-launch-explodes"
 # url = "https://www.space.com/space-force-x-37b-spacex-falcon-heavy-1st-launch-dec-2023"
-url = "https://spacenews.com/nasa-slows-down-work-on-mars-sample-return-due-to-budget-uncertainty/"
+# url = "https://spacenews.com/nasa-slows-down-work-on-mars-sample-return-due-to-budget-uncertainty/"
+# url = "https://spacenews.com/satellite-imagery-reveals-explosion-at-chinas-jiuquan-spaceport/"
+# url = "https://spacenews.com/china-makes-progress-on-raptor-like-engines-for-super-heavy-rocket/"
+# url = "https://www.space.com/what-are-radio-galaxies"
+# url = "https://www.space.com/nasa-x-59-quesst-paint-job"
+url = "https://www.space.com/mars-rotor-system-test-nears-supersonic-speeds-ingenuity-flies-coincides"
+
 
 
 text_dict = cg.get_text_from_html(url=url)
