@@ -6,13 +6,13 @@ import content_grabber as cg
 import database_tools as dt
 
 
-# save_folder = r"G:\temp"
-save_folder = r"D:\temp"
+save_folder = r"G:\temp"
+# save_folder = r"D:\temp"
 
 # url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
 # url = "https://www.space.com/nasa-voyager-mission-engineers-documentary"
 # url = "https://www.space.com/voyager-1-45-year-launch-anniversary"
-# url = "https://spacenews.com/esa-troubleshooting-juice-radar-antenna/"
+# url = "https://spacenews.com/esa-troublseshooting-juice-radar-antenna/"
 # url = "https://www.space.com/voyager-2"
 # url = "https://www.space.com/why-take-juice-spacecraft-eight-years-reach-jupiter"
 # url = "https://spacenews.com/chinas-mystery-reusable-spaceplane-lands-after-276-days-in-orbit/"
@@ -39,7 +39,8 @@ save_folder = r"D:\temp"
 # url = "https://spacenews.com/china-makes-progress-on-raptor-like-engines-for-super-heavy-rocket/"
 # url = "https://www.space.com/what-are-radio-galaxies"
 # url = "https://www.space.com/nasa-x-59-quesst-paint-job"
-url = "https://www.space.com/mars-rotor-system-test-nears-supersonic-speeds-ingenuity-flies-coincides"
+# url = "https://www.space.com/mars-rotor-system-test-nears-supersonic-speeds-ingenuity-flies-coincides"
+url = "https://www.space.com/china-space-plane-depoyed-mystery-objects"
 
 
 
