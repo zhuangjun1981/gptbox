@@ -40,7 +40,8 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/what-are-radio-galaxies"
 # url = "https://www.space.com/nasa-x-59-quesst-paint-job"
 # url = "https://www.space.com/mars-rotor-system-test-nears-supersonic-speeds-ingenuity-flies-coincides"
-url = "https://www.space.com/china-space-plane-depoyed-mystery-objects"
+# url = "https://www.space.com/china-space-plane-depoyed-mystery-objects"
+url = "https://www.space.com/mars-rotor-system-test-nears-supersonic-speeds-ingenuity-flies-coincides"
 
 
 
