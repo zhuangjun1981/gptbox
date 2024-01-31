@@ -44,7 +44,9 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/mars-rotor-system-test-nears-supersonic-speeds-ingenuity-flies-coincides"
 # url = "https://www.space.com/15787-johannes-kepler.html"
 # url = "https://www.space.com/nasa-removes-stuck-fasteners-osiris-rex-asteroid-samples"
-url = "https://www.space.com/astrobotic-peregrine-moon-lander-headed-to-earth"
+# url = "https://www.space.com/astrobotic-peregrine-moon-lander-headed-to-earth"
+# url = "https://spacenews.com/moores-law-space/"
+url = "https://spacenews.com/chinas-change-6-probe-arrives-at-spaceport-for-first-ever-lunar-far-side-sample-mission/"
 
 
 
