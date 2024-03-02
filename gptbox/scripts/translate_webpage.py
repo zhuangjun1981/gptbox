@@ -49,7 +49,8 @@ save_folder = r"G:\temp"
 # url = "https://spacenews.com/chinas-change-6-probe-arrives-at-spaceport-for-first-ever-lunar-far-side-sample-mission/"
 # url = "https://www.space.com/solar-maximum-in-sight-but-scientists-will-have-to-wait-seven-months-after-it-occurs-to-officially-declare-it"
 # url = "https://www.space.com/nasa-jpl-layoffs-february-2024-mars-sample-return"
-url = "https://www.space.com/nasa-voyager-spacecraft-mission-deep-space-update"
+# url = "https://www.space.com/nasa-voyager-spacecraft-mission-deep-space-update"
+url = "https://www.space.com/mars-ingenuity-helicopter-blade-mars-perseverance-photo"
 
 
 text_dict = cg.get_text_from_html(url=url)
