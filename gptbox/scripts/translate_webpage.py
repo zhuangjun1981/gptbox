@@ -51,7 +51,8 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/nasa-jpl-layoffs-february-2024-mars-sample-return"
 # url = "https://www.space.com/nasa-voyager-spacecraft-mission-deep-space-update"
 # url = "https://www.space.com/mars-ingenuity-helicopter-blade-mars-perseverance-photo"
-url = "https://www.space.com/spacex-starship-flight-3-launch-what-time"
+# url = "https://www.space.com/spacex-starship-flight-3-launch-what-time"
+url = "https://www.space.com/spacex-starship-third-test-flight-launch"
 
 
 text_dict = cg.get_text_from_html(url=url)
