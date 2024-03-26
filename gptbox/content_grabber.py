@@ -129,7 +129,12 @@ def get_clean_text_spacedotcom(url):
             else:
                 fig = chi.find('figure')
             pic = fig.find('picture')
-            text_dict['image_urls'].append(pic.find_all('source')[1].get('data-srcset').split(',')[-1].split(" ")[1])
+
+            try:
+                text_dict['image_urls'].append(pic.find_all('source')[1].get('data-srcset').split(',')[-1].split(" ")[1])
+            except Exception as e:
+                text_dict['image_urls'].append(pic.find_all('source')[0].get('srcset').split(',')[-1].split(" ")[1])
+            
             caption = clean_text(fig.find('figcaption').get_text())
             text_dict['body'].append(f'[image#{img_id:02d}]{caption}')
             img_id += 1
