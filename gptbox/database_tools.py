@@ -43,7 +43,7 @@ def get_text_for_printing_eng(h5_path):
     txt += f'\n\nSummary (ChatGPT generated): {h5f["summary"][()].decode()}'
     
     txt += '\n'
-    txt += 'Main text (mainly translated by ChatGPT):\n'
+    txt += 'Main text (mainly translated by ChatGPT):'
     body = h5f["body"][()]
     for para in body:
         txt += f'\n{para.decode()}'
