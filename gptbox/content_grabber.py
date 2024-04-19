@@ -107,8 +107,10 @@ def get_clean_text_spacedotcom(url):
 
     # add title figure caption into body
     title_fig_cap = soup.find('figcaption')
-    text_dict["body"].append(f'[image#{img_id:02d}]{clean_text(title_fig_cap.get_text())}')
-    img_id += 1
+    
+    if title_fig_cap is not None:
+        text_dict["body"].append(f'[image#{img_id:02d}]{clean_text(title_fig_cap.get_text())}')
+        img_id += 1
 
     # get other body text, subheadline, and image text
     body = soup.find_all('div')
