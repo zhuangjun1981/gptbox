@@ -5,9 +5,8 @@ sys.path.extend([os.path.dirname(curr_folder)])
 import content_grabber as cg
 import database_tools as dt
 
-
-save_folder = r"G:\temp"
-# save_folder = r"D:\temp"
+# save_folder = r"G:\temp"
+save_folder = r"D:\temp"
 
 # url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
 # url = "https://www.space.com/nasa-voyager-mission-engineers-documentary"
@@ -58,7 +57,8 @@ save_folder = r"G:\temp"
 # url = "https://spacenews.com/china-appears-to-be-trying-to-save-stricken-spacecraft-from-lunar-limbo/"
 # url = "https://www.space.com/mars-giant-volcano-hiding-plain-sight"
 # url = "https://www.space.com/object-crash-florida-home-iss-space-junk-nasa-confirms"
-url = "https://www.space.com/ingenuity-mars-helicopter-flight-map-video-2024"
+# url = "https://www.space.com/ingenuity-mars-helicopter-flight-map-video-2024"
+url = "https://www.space.com/china-reusable-rocket-aces-key-engine-tests"
 
 
 text_dict = cg.get_text_from_html(url=url)
