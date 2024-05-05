@@ -60,7 +60,9 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/ingenuity-mars-helicopter-flight-map-video-2024"
 # url = "https://www.space.com/china-reusable-rocket-aces-key-engine-tests"
 # url = "https://www.space.com/china-tiangong-space-station-space-debris-measures"
-url = "https://www.space.com/what-is-solar-maximum-and-when-will-it-happen"
+# url = "https://www.space.com/what-is-solar-maximum-and-when-will-it-happen"
+# url = "https://www.space.com/boeing-starliner-crew-flight-test-launch-pad-rollout"
+url = "https://www.space.com/boeing-starliner-nasa-astronauts-delay-emotional-rollercoaster-launch"
 
 
 text_dict = cg.get_text_from_html(url=url)
