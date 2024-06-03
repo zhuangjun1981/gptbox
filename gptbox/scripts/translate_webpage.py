@@ -5,8 +5,9 @@ sys.path.extend([os.path.dirname(curr_folder)])
 import content_grabber as cg
 import database_tools as dt
 
-save_folder = r"G:\temp"
+# save_folder = r"G:\temp"
 # save_folder = r"D:\temp"
+save_folder = r"F:\webpage_translation"
 
 # url = "https://www.space.com/spacex-starship-launch-debris-terrifying"
 # url = "https://www.space.com/nasa-voyager-mission-engineers-documentary"
@@ -63,8 +64,11 @@ save_folder = r"G:\temp"
 # url = "https://www.space.com/what-is-solar-maximum-and-when-will-it-happen"
 # url = "https://www.space.com/boeing-starliner-crew-flight-test-launch-pad-rollout"
 # url = "https://www.space.com/boeing-starliner-nasa-astronauts-delay-emotional-rollercoaster-launch"
-url = "https://spacenews.com/chinas-change-6-is-carrying-a-surprise-rover-to-the-moon/"
-
+# url = "https://spacenews.com/chinas-change-6-is-carrying-a-surprise-rover-to-the-moon/"
+# url = "https://www.space.com/satellite-images-rafah-israel-gaza"
+# url = "https://www.space.com/spacex-crew-dragon-trunk-space-debris-canada"
+# url = "https://www.space.com/voyager-1-mission-glitch-engineers-weighing-in-lucky-peanuts"
+url = "https://www.space.com/japan-slim-mission-unresponsive-jaxa-signal"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
