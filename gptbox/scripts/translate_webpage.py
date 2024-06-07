@@ -68,7 +68,10 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/satellite-images-rafah-israel-gaza"
 # url = "https://www.space.com/spacex-crew-dragon-trunk-space-debris-canada"
 # url = "https://www.space.com/voyager-1-mission-glitch-engineers-weighing-in-lucky-peanuts"
-url = "https://www.space.com/japan-slim-mission-unresponsive-jaxa-signal"
+# url = "https://www.space.com/japan-slim-mission-unresponsive-jaxa-signal"
+# url = "https://www.space.com/japanese-billionaire-cancels-spacex-starship-moon-dearmoon-flight"
+# url = "https://www.space.com/boeing-starliner-crew-flight-test-launch"
+url = "https://www.space.com/spacex-starship-flight-4-test-launch-success"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
