@@ -71,7 +71,14 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/japan-slim-mission-unresponsive-jaxa-signal"
 # url = "https://www.space.com/japanese-billionaire-cancels-spacex-starship-moon-dearmoon-flight"
 # url = "https://www.space.com/boeing-starliner-crew-flight-test-launch"
-url = "https://www.space.com/spacex-starship-flight-4-test-launch-success"
+# url = "https://www.space.com/spacex-starship-flight-4-test-launch-success"
+# url = "https://spacenews.com/spacex-and-the-categorical-imperative-to-achieve-low-launch-cost/"
+# url = "https://www.space.com/mars-water-frost-equator-exomars-tharsis-olympus-mons"
+# url = "https://www.space.com/boeing-starliner-helium-leaks-assessment"
+# url = "https://spacenews.com/voyager-1-returning-science-data-again/"
+# url = "https://www.space.com/shenzhou-18-second-spacewalk-tiangong-space-debris-shield"
+# url = "https://spacenews.com/europe-set-for-crucial-first-launch-of-ariane-6/"
+url = "https://www.space.com/what-are-blazars-complete-guide"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
@@ -79,7 +86,7 @@ h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
 dt.translate_h5_file(h5_path=h5_path, 
                      model="gpt-4-1106-preview",
                     #  model="gpt-3.5-turbo",
-                     max_len=10000,
+                     max_len=100000,
                      temperature=0)
 
 dt.save_text_files(h5_path)
