@@ -4,13 +4,21 @@ import translate as ts
 
 
 def resolve_path(path):
+    """
+    resolve path if it already exists.
+    1. add a suffix "_1" if it does not have a suffix
+    2. update suffix by adding 1 if it has a suffix
+
+    Return:
+        path: str, updated path
+    """
+
+    folder, fn = os.path.split(path)
+    fn, ext = os.path.splitext(fn)
     
     if not os.path.isfile(path):
-        return path
+        return path, fn
     else:
-        folder, fn = os.path.split(path)
-        fn, ext = os.path.splitext(fn)
-
         suffix = fn.split("_")[-1]
 
         try:
@@ -18,8 +26,10 @@ def resolve_path(path):
             fn = "_".join(fn.split("_")[:-1] + [str(suffix_int + 1)])
         except ValueError:
             fn = "_".join(fn.split("_")[:-1] + ["1"])
-    
-    return os.path.join(folder, fn + ext)
+            
+        path = os.path.join(folder, fn + ext)
+
+        return path, fn
 
 
 def save_html_content(text_dict, folder):
@@ -31,7 +41,7 @@ def save_html_content(text_dict, folder):
     domain = text_dict['domain']
     fn = f'{pub_time[0:10]}_{domain}'
 
-    h5_path = os.path.join(folder, f'{fn}.h5')
+    h5_path, fn = resolve_path(os.path.join(folder, f'{fn}.h5'))
     # print(h5_path)
 
     # save images
