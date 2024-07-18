@@ -2,6 +2,26 @@ import os, h5py, json
 import content_grabber as cg
 import translate as ts
 
+
+def resolve_path(path):
+    
+    if not os.path.isfile(path):
+        return path
+    else:
+        folder, fn = os.path.split(path)
+        fn, ext = os.path.splitext(fn)
+
+        suffix = fn.split("_")[-1]
+
+        try:
+            suffix_int = int(suffix)
+            fn = "_".join(fn.split("_")[:-1] + [str(suffix_int + 1)])
+        except ValueError:
+            fn = "_".join(fn.split("_")[:-1] + ["1"])
+    
+    return os.path.join(folder, fn + ext)
+
+
 def save_html_content(text_dict, folder):
     """
     :params article: content_grabber.ContentGrabber object
@@ -115,19 +135,20 @@ if __name__ == "__main__":
     # article.get_text_from_html(url=url)
     # save_html_content(article=article, folder=save_folder)
 
-    # h5_path = r"G:\temp\2023-04-21_space.com.h5"
-    # translate_h5_file(h5_path)
+    h5_path = r"G:\temp\2023-04-21_space.com.h5"
+    translate_h5_file(h5_path)
 
     # h5_path = r"G:\temp\2023-04-21_space.com.h5"
     # print(get_text_for_printing_eng(h5_path=h5_path))
     # print(get_text_for_printing_chs(h5_path=h5_path))
 
-    h5_path = r"G:\temp\2023-05-08_spacenews.com.h5"
-    txt_eng = get_text_for_printing_eng(h5_path=h5_path)
-    blocks = ts.break_text_into_blocks(text=txt_eng, max_len=1500)
-    [print(f'\n\n\n{b}') for b in blocks]
+    # h5_path = r"G:\temp\2023-05-08_spacenews.com.h5"
+    # txt_eng = get_text_for_printing_eng(h5_path=h5_path)
+    # blocks = ts.break_text_into_blocks(text=txt_eng, max_len=1500)
+    # [print(f'\n\n\n{b}') for b in blocks]
 
-    
+    # path_org = r"F:\webpage_translation\2024-07-16_spacenews.com.h5"
+    # print(resolve_path(path_org))
 
-
-
+    # path_org = r"F:\webpage_translation\2024-07-16_spacenews.com_3.h5"
+    # print(resolve_path(path_org))

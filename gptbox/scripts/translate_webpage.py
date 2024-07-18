@@ -81,7 +81,9 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/what-are-blazars-complete-guide"
 # url = "https://www.space.com/europe-clipper-transistors-vulnerable-radiation"
 # url = "https://spacenews.com/china-reschedules-planetary-defense-mission-for-2027-launch/"
-url = "https://www.space.com/spacex-rocket-failure-nasa-astronaut-launch-schedule-iss"
+# url = "https://www.space.com/spacex-rocket-failure-nasa-astronaut-launch-schedule-iss"
+# url = "https://www.space.com/iss-deorbit-destroy-spacex-vehicle-18-months"
+url = "https://spacenews.com/china-prepares-to-launch-new-long-march-12-rocket/"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
