@@ -88,7 +88,10 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/nasa-cancels-viper-moon-rover-budget"
 # url = "https://www.space.com/spacex-starlink-50000-collision-avoidance-maneuvers-space-safety"
 # url = "https://www.space.com/china-change-6-mini-moon-rover-training-video"
-url = "https://www.space.com/mercury-diamond-layer-10-miles-thick-nasa-messenger"
+# url = "https://www.space.com/mercury-diamond-layer-10-miles-thick-nasa-messenger"
+# url = "https://www.space.com/spacex-crew-9-iss-astronaut-space-junk-dragon"
+# url = "https://spacenews.com/spacex-to-move-dragon-splashdowns-back-to-west-coast/"
+url = "https://www.space.com/chandra-25-years-celebration-nasa"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
