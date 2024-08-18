@@ -102,7 +102,8 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/chinese-rocket-stage-breaks-up-into-cloud-of-more-than-700-pieces-of-space-debris/"
 # url = "https://spacenews.com/nasa-watchdog-finds-quality-control-problems-with-boeing-sls-work/"
 # url = "https://www.space.com/china-cas-space-reusable-rocket-progress"
-url = "https://www.space.com/researchers-want-to-build-streetlights-on-the-moon"
+# url = "https://www.space.com/researchers-want-to-build-streetlights-on-the-moon"
+url = "https://spacenews.com/china-could-develop-dual-relay-satellite-system-for-earth-moon-communications-to-reduce-geopolitical-risks/"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
