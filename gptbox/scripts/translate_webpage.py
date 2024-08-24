@@ -106,7 +106,11 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/china-could-develop-dual-relay-satellite-system-for-earth-moon-communications-to-reduce-geopolitical-risks/"
 # url = "https://spacenews.com/rethinking-safety-in-the-age-of-machine-complexity/"
 # url = "https://spacenews.com/chinese-spacecraft-appear-to-reach-lunar-orbit-despite-launch-setback/"
-url = "https://www.space.com/rocket-factory-augsburg-explosion-saxavord-spaceport"
+# url = "https://www.space.com/rocket-factory-augsburg-explosion-saxavord-spaceport"
+# url = "https://www.space.com/perseverance-mars-rover-sample-return"
+# url = "https://spacenews.com/china-to-launch-earth-2-0-exoplanet-observatory-in-2028/"
+# url = "https://www.space.com/nasa-boeing-starliner-astronauts-will-return-on-spacex-dragon-2025"
+url = "https://spacenews.com/starliner-to-return-from-iss-without-astronauts-on-board/"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
