@@ -67,8 +67,10 @@ def get_text_for_printing_eng(h5_path):
     txt += f'{h5f["title"][()].decode()}'
     txt += f'\n{h5f["url"][()].decode()}'
     txt += f'\nPublished at {h5f["published_time"][()].decode()}'
-    txt += f'\n\nSummary (ChatGPT generated): \n{h5f["summary"][()].decode()}'
-    txt += '\n\nMain text (mainly translated by ChatGPT):\n'
+    # txt += f'\n\nSummary (ChatGPT generated): \n{h5f["summary"][()].decode()}'
+    # txt += '\n\nMain text (mainly translated by ChatGPT):\n'
+    txt += f'\n\nSummary: \n{h5f["summary"][()].decode()}'
+    txt += '\n\nMain text:\n'
     body = h5f["body"][()]
     for para in body:
         txt += f'\n{para.decode()}'
