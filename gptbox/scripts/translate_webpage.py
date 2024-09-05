@@ -117,7 +117,11 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/jaxa-slim-moon-lander-dead"
 # url = "https://www.space.com/blue-origin-new-glenn-debut-launch-escapade-mars-october-2024"
 # url = "https://www.space.com/nasa-solar-sail-deployment"
-url = "https://www.space.com/unbreakable-quantum-communication-bright-photons"
+# url = "https://www.space.com/unbreakable-quantum-communication-bright-photons"
+# url = "https://spacenews.com/china-launches-new-set-of-classified-yaogan-43-satellites/"
+# url = "https://www.space.com/boeing-starliner-spacecraft-tension-return-earth-without-astronauts"
+url = "https://spacenews.com/china-to-launch-mars-sample-return-mission-in-2028-will-follow-planetary-protection-guidelines/"
+
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
@@ -125,7 +129,7 @@ h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
 dt.translate_h5_file(h5_path=h5_path, 
                      model="gpt-4-1106-preview",
                     #  model="gpt-3.5-turbo",
-                     max_len=100000,
+                     max_len=50000,
                      temperature=0)
 
 dt.save_text_files(h5_path)
