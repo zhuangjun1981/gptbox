@@ -124,7 +124,8 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/boeing-starliner-astronauts-nasa-spacex-crew-dragon"
 # url = "https://spacenews.com/chinas-secretive-reusable-spaceplane-lands-after-267-days-in-orbit/"
 # url = "https://www.space.com/boeing-starliner-lands-earth-crew-flight-test-mission"
-url = "https://www.space.com/china-moon-bricks-test-tiangong-space-station"
+# url = "https://www.space.com/china-moon-bricks-test-tiangong-space-station"
+url = "https://www.space.com/spacex-polaris-dawn-astronaut-mission-launch-success"
 
 
 text_dict = cg.get_text_from_html(url=url)
