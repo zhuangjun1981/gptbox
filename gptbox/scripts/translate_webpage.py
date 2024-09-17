@@ -125,7 +125,14 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/chinas-secretive-reusable-spaceplane-lands-after-267-days-in-orbit/"
 # url = "https://www.space.com/boeing-starliner-lands-earth-crew-flight-test-mission"
 # url = "https://www.space.com/china-moon-bricks-test-tiangong-space-station"
-url = "https://www.space.com/spacex-polaris-dawn-astronaut-mission-launch-success"
+# url = "https://www.space.com/spacex-polaris-dawn-astronaut-mission-launch-success"
+# url = "https://spacenews.com/china-is-taking-a-keen-interest-in-lava-tubes-as-possible-lunar-habitats/"
+# url = "https://www.space.com/voyager-1-interstellar-space-thruster-fix"
+# url = "https://www.space.com/spacex-starship-flight-five-late-november"
+# url = "https://www.space.com/starship-super-heavy-wind-tunnel-tests"
+# url = "https://www.space.com/spacex-polaris-dawn-private-astronaut-mission-splashdown"
+# url = "https://www.space.com/china-long-march-8a-1st-launch-preparations"
+url = "https://www.space.com/faa-fining-spacex-launches-2023"
 
 
 text_dict = cg.get_text_from_html(url=url)
