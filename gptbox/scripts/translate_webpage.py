@@ -139,7 +139,8 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/second-kuiper-belt-solar-system-larger-than-thought"
 # url = "https://www.space.com/china-change-6-lunar-samples-results"
 # url = "https://spacenews.com/deep-blue-aerospace-hop-test-suffers-anomaly-moments-before-landing/"
-url = "https://spacenews.com/china-set-to-unveil-long-term-vision-for-space-science/"
+# url = "https://spacenews.com/china-set-to-unveil-long-term-vision-for-space-science/"
+url = "https://www.space.com/spacex-starship-super-heavy-booster-retrieved-sea-photo"
 
 
 text_dict = cg.get_text_from_html(url=url)
