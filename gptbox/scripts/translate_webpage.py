@@ -141,7 +141,10 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/deep-blue-aerospace-hop-test-suffers-anomaly-moments-before-landing/"
 # url = "https://spacenews.com/china-set-to-unveil-long-term-vision-for-space-science/"
 # url = "https://www.space.com/spacex-starship-super-heavy-booster-retrieved-sea-photo"
-url = "https://www.space.com/china-space-plane-image-delta-wing-design"
+# url = "https://www.space.com/china-space-plane-image-delta-wing-design"
+# url = "https://www.space.com/blue-origin-new-glenn-upper-stage-hotfire-test-video"
+# url = "https://www.space.com/spacex-pause-launches-crew-9-falcon-9-issue"
+url = "https://spacenews.com/china-to-launch-near-earth-asteroid-sample-return-mission-in-2025/"
 
 
 text_dict = cg.get_text_from_html(url=url)
