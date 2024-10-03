@@ -146,7 +146,8 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/spacex-pause-launches-crew-9-falcon-9-issue"
 # url = "https://spacenews.com/china-to-launch-near-earth-asteroid-sample-return-mission-in-2025/"
 # url = "https://www.space.com/china-fast-radio-telescope-24-new-dishes"
-url = "https://www.space.com/voyager-2-science-instrument-shut-off"
+# url = "https://www.space.com/voyager-2-science-instrument-shut-off"
+url = "https://www.space.com/most-powerful-solar-flare-this-solar-cycle-x-9-earth-firing-line"
 
 
 text_dict = cg.get_text_from_html(url=url)
