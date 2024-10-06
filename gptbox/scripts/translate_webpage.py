@@ -147,8 +147,10 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/china-to-launch-near-earth-asteroid-sample-return-mission-in-2025/"
 # url = "https://www.space.com/china-fast-radio-telescope-24-new-dishes"
 # url = "https://www.space.com/voyager-2-science-instrument-shut-off"
-url = "https://www.space.com/most-powerful-solar-flare-this-solar-cycle-x-9-earth-firing-line"
-
+# url = "https://www.space.com/most-powerful-solar-flare-this-solar-cycle-x-9-earth-firing-line"
+# url = "https://www.space.com/curiosity-mars-rover-wheel-damage-sept-2024"
+# url = "https://www.space.com/nasa-tess-record-breaking-three-star-system-tightly-packed"
+url = "https://spacenews.com/brightness-of-first-chinese-broadband-constellation-satellites-alarms-astronomers/"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
