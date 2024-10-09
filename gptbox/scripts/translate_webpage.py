@@ -150,7 +150,9 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/most-powerful-solar-flare-this-solar-cycle-x-9-earth-firing-line"
 # url = "https://www.space.com/curiosity-mars-rover-wheel-damage-sept-2024"
 # url = "https://www.space.com/nasa-tess-record-breaking-three-star-system-tightly-packed"
-url = "https://spacenews.com/brightness-of-first-chinese-broadband-constellation-satellites-alarms-astronomers/"
+# url = "https://spacenews.com/brightness-of-first-chinese-broadband-constellation-satellites-alarms-astronomers/"
+url = "https://www.space.com/future-space-technologies-world-space-week"
+
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
