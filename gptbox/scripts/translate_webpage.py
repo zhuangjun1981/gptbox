@@ -155,7 +155,10 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/spacex-starship-flight-5-target-oct-13-pending-faa"
 # url = "https://www.space.com/sen-4k-camera-iss-hurricane-milton-video"
 # url = "https://www.space.com/hurricane-milton-florida-iss-category-5-video"
-url = "https://spacenews.com/u-s-military-spaceplane-to-perform-orbital-maneuvers"
+# url = "https://www.space.com/hubble-telescope-new-horizons-image-uranus"
+# url = "https://spacenews.com/shijian-19-reusable-satellite-lands-after-2-weeks-in-space"
+# url = "https://www.space.com/spacex-starship-flight-5-launch-what-time-livestream"
+url = "https://spacenews.com/spacex-launches-fifth-starship-catches-super-heavy-booster"
 
 
 text_dict = cg.get_text_from_html(url=url)
