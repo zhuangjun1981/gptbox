@@ -158,8 +158,10 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/hubble-telescope-new-horizons-image-uranus"
 # url = "https://spacenews.com/shijian-19-reusable-satellite-lands-after-2-weeks-in-space"
 # url = "https://www.space.com/spacex-starship-flight-5-launch-what-time-livestream"
-url = "https://spacenews.com/spacex-launches-fifth-starship-catches-super-heavy-booster"
-
+# url = "https://spacenews.com/spacex-launches-fifth-starship-catches-super-heavy-booster"
+# url = "https://www.space.com/spacex-falcon-heavy-europa-clipper-launch"
+# url = "https://spacenews.com/china-launches-second-batch-of-18-satellites-for-thousand-sails-megaconstellation/"
+url = "https://spacenews.com/xichang-to-build-commercial-spaceport-to-boost-chinas-launch-capacity/"
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
