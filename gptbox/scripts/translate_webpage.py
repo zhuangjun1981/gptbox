@@ -161,7 +161,15 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/spacex-launches-fifth-starship-catches-super-heavy-booster"
 # url = "https://www.space.com/spacex-falcon-heavy-europa-clipper-launch"
 # url = "https://spacenews.com/china-launches-second-batch-of-18-satellites-for-thousand-sails-megaconstellation/"
-url = "https://spacenews.com/xichang-to-build-commercial-spaceport-to-boost-chinas-launch-capacity/"
+# url = "https://spacenews.com/xichang-to-build-commercial-spaceport-to-boost-chinas-launch-capacity/"
+# url = "https://www.space.com/china-exploration-roadmap-moon-mars-asteroids-jupiter"
+# url = "https://www.space.com/spacex-starlink-reentry-pollution-damage-earth-atmosphere"
+# url = "https://spacenews.com/spacex-secures-new-contracts-worth-733-5-million-for-national-security-space-missions/"
+# url = "https://www.space.com/space-force-spacex-national-security-launches-october-2024"
+# url = "https://spacenews.com/nasa-further-delays-first-operational-starliner-flight/"
+# url = "https://spacenews.com/china-launches-3-tianping-3-radar-calibration-satellites/"
+url = "https://spacenews.com/venus-atmosphere-sample-return-noted-in-chinas-long-term-space-science-roadmap/"
+
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
