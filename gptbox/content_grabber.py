@@ -253,7 +253,9 @@ def get_clean_text_spacenews(url):
     article = [
         a
         for a in article
-        if (a.get("class") is not None) and a.get("class") and (a.get("class")[0] == "entry-content")
+        if (a.get("class") is not None)
+        and a.get("class")
+        and (a.get("class")[0] == "entry-content")
     ][0]
 
     for chi in article.children:
