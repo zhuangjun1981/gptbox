@@ -174,7 +174,12 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/space-exploration/international-space-station/spacex-crew-8-astronauts-taken-to-pensacola-hospital-for-extra-medical-checks-after-dragon-capsule-splashdown-nasa-says"
 # url = "https://www.space.com/nasa-crossroads-budget-issues-national-academies-report"
 # url = "https://www.space.com/spacex-starship-super-heavy-chopsticks-catch-near-abort"
-url = "https://www.space.com/space-exploration/missions/voyager-1-spacecraft-phones-home-with-transmitter-that-hasnt-been-used-since-1981"
+# url = "https://www.space.com/space-exploration/missions/voyager-1-spacecraft-phones-home-with-transmitter-that-hasnt-been-used-since-1981"
+# url = "https://spacenews.com/japan-launches-kirameki-3-military-communications-satellite-with-h3-rocket/"
+# url = "https://www.space.com/space-exploration/missions/sharp-lobster-vision-chinas-einstein-probe-space-telescope-already-making-discoveries-during-commissioning-phase"
+# url = "https://spacenews.com/chinas-new-rocket-for-crew-and-moon-to-launch-in-2026/"
+# url = "https://www.space.com/space-exploration/launches-spacecraft/spacex-targeting-nov-18-for-next-starship-megarocket-launch"
+url = "https://www.space.com/space-exploration/international-space-station/astronaut-suni-williams-in-good-health-on-the-iss-nasa-says-refuting-tabloid-claims"
 
 
 text_dict = cg.get_text_from_html(url=url)
