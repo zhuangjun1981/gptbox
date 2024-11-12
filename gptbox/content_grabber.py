@@ -99,14 +99,21 @@ def get_clean_text_spacedotcom(url):
     text_dict["title"] = json_dict["headline"]
     text_dict["url"] = json_dict["url"]
 
-    try:
-        text_dict["author"] = json_dict["author"]["name"]
-        text_dict["author_url"] = json_dict["author"]["url"]
-        text_dict["author_bio"] = clean_text(json_dict["author"]["description"])
-    except TypeError:
-        text_dict["author"] = json_dict["author"][0]["name"]
-        text_dict["author_url"] = json_dict["author"][0]["url"]
-        text_dict["author_bio"] = clean_text(json_dict["author"][0]["description"])
+    author_dict = json_dict["author"]
+    if isinstance(author_dict, list):
+        author_dict = author_dict[0]
+
+    text_dict["author"] = author_dict["name"]
+
+    if "url" in author_dict:
+        text_dict["author_url"] = author_dict["url"]
+    else:
+        text_dict["author_url"] = ""
+
+    if "description" in author_dict:
+        text_dict["author_bio"] = clean_text(author_dict["description"])
+    else:
+        text_dict["author_bio"] = ""
 
     text_dict["image_urls"].append(json_dict["image"]["url"])
     text_dict["published_time"] = json_dict["datePublished"][0:19]
