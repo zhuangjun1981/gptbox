@@ -3,33 +3,33 @@ import content_grabber as cg
 import translate as ts
 
 
-def resolve_path(path):
+def resolve_folder_path(folder_path):
     """
     resolve path if it already exists.
     1. add a suffix "_1" if it does not have a suffix
     2. update suffix by adding 1 if it has a suffix
 
     Return:
-        path: str, updated path
+        folder_path: updated folder path
     """
 
-    folder, fn = os.path.split(path)
-    fn, ext = os.path.splitext(fn)
+    parent_folder, folder_n = os.path.split(folder_path)
 
-    if not os.path.isfile(path):
-        return path, fn
+    if not os.path.isdir(folder_path):
+        os.makedirs(folder_path)
     else:
-        suffix = fn.split("_")[-1]
+        suffix = folder_n.split("_")[-1]
 
         try:
             suffix_int = int(suffix)
-            fn = "_".join(fn.split("_")[:-1] + [str(suffix_int + 1)])
+            folder_n = "_".join(folder_n.split("_")[:-1] + [str(suffix_int + 1)])
         except ValueError:
-            fn = "_".join(fn.split("_")[:-1] + ["1"])
+            folder_n = "_".join(folder_n.split("_")[:-1] + ["1"])
 
-        path = os.path.join(folder, fn + ext)
+        folder_path = os.path.join(parent_folder, folder_n)
+        os.makedirs(folder_path)
 
-        return path, fn
+    return folder_path, folder_n
 
 
 def save_html_content(text_dict, folder):
@@ -39,15 +39,18 @@ def save_html_content(text_dict, folder):
 
     pub_time = text_dict["published_time"]
     domain = text_dict["domain"]
-    fn = f"{pub_time[0:10]}_{domain}"
+    folder_n = f"{pub_time[0:10]}_{domain}"
 
-    h5_path, fn = resolve_path(os.path.join(folder, f"{fn}.h5"))
+    folder_path, fn = resolve_folder_path(os.path.join(folder, folder_n))
+    h5_path = os.path.join(folder_path, f"{fn}.h5")
     # print(h5_path)
 
     # save images
     img_urls = text_dict["image_urls"]
     for img_i, img_url in enumerate(img_urls):
-        cg.download_image(url=img_url, folder=folder, filename=f"{fn}_img{img_i:02d}")
+        cg.download_image(
+            url=img_url, folder=folder_path, filename=f"{fn}_img{img_i:02d}"
+        )
 
     if os.path.isfile(h5_path):
         os.remove(h5_path)
