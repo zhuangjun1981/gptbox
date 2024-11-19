@@ -90,13 +90,16 @@ def parse_text(text):
     text_parts = {}
 
     lines = text.split("\n")
+
     text_parts["title"] = lines[0]
     text_parts["article_url"] = lines[1]
     text_parts["post_timestamp"] = lines[2]
-    text_parts["body"] = "\n".join(lines[1:])
 
     author_line = [l for l in lines if l.startswith("作者：")][-1]
     text_parts["author"] = author_line.split("：")[-1]
+
+    lines = ["<p>" + l + "</p><br/>" for l in lines]
+    text_parts["body"] = "".join(lines[1:])
 
     return text_parts
 
