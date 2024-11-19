@@ -2,7 +2,7 @@ import os
 import h5py
 import json
 import requests
-from wx_token import get_wx_token
+from wx_utils import get_wx_token
 
 
 def upload_image(img_path):

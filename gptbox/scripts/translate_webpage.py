@@ -193,12 +193,12 @@ url = "https://spacenews.com/roman-space-telescope-reaches-assembly-milestone/"
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
 
-dt.translate_h5_file(
-    h5_path=h5_path,
-    model="gpt-4-1106-preview",
-    #  model="gpt-3.5-turbo",
-    max_len=50000,
-    temperature=0,
-)
+# dt.translate_h5_file(
+#     h5_path=h5_path,
+#     model="gpt-4-1106-preview",
+#     #  model="gpt-3.5-turbo",
+#     max_len=50000,
+#     temperature=0,
+# )
 
-dt.save_text_files(h5_path)
+# dt.save_text_files(h5_path)

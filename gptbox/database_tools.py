@@ -14,21 +14,16 @@ def resolve_folder_path(folder_path):
     """
 
     parent_folder, folder_n = os.path.split(folder_path)
-
-    if not os.path.isdir(folder_path):
-        os.makedirs(folder_path)
+    folders = [fn for fn in os.listdir(parent_folder) if fn.startswith(folder_n)]
+    if len(folders) == 0:
+        folder_n += "_00"
     else:
-        suffix = folder_n.split("_")[-1]
+        suffix = folders[-1].split("_")[-1]
+        suffix = int(suffix) + 1
+        folder_n += f"_{suffix:02d}"
 
-        try:
-            suffix_int = int(suffix)
-            folder_n = "_".join(folder_n.split("_")[:-1] + [str(suffix_int + 1)])
-        except ValueError:
-            folder_n = "_".join(folder_n.split("_")[:-1] + ["1"])
-
-        folder_path = os.path.join(parent_folder, folder_n)
-        os.makedirs(folder_path)
-
+    folder_path = os.path.join(parent_folder, folder_n)
+    os.makedirs(folder_path)
     return folder_path, folder_n
 
 
