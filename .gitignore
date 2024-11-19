@@ -10,3 +10,5 @@ sandbox/
 
 .ipynb_checkpoints/
 .ipynb
+
+.env
