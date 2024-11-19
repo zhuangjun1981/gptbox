@@ -182,7 +182,12 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/space-exploration/international-space-station/astronaut-suni-williams-in-good-health-on-the-iss-nasa-says-refuting-tabloid-claims"
 # url = "https://www.space.com/space-exploration/tech/boom-supersonics-xb-1-jet-sets-new-speed-record-during-7th-test-flight"
 # url = "https://www.space.com/space-exploration/international-space-station/spacex-dragon-fires-thrusters-to-boost-iss-orbit-for-the-1st-time"
-url = "https://www.space.com/space-exploration/human-spaceflight/the-us-is-now-at-risk-of-losing-to-china-in-the-race-to-send-people-back-to-the-moons-surface"
+# url = "https://www.space.com/space-exploration/human-spaceflight/the-us-is-now-at-risk-of-losing-to-china-in-the-race-to-send-people-back-to-the-moons-surface"
+# url = "https://www.space.com/nasa-jpl-laying-off-325-employees"
+# url = "https://www.space.com/the-universe/mars/chinas-mars-rover-zhurong-finds-possible-shoreline-of-ancient-red-planet-ocean"
+# url = "https://www.space.com/space-exploration/launches-spacecraft/spacex-rolls-starship-flight-6-super-heavy-rocket-to-pad-ahead-of-nov-18-launch-photos"
+# url = "https://www.space.com/space-exploration/launches-spacecraft/europes-hera-asteroid-probe-heads-for-mars-after-engine-burn"
+url = "https://spacenews.com/roman-space-telescope-reaches-assembly-milestone/"
 
 
 text_dict = cg.get_text_from_html(url=url)
