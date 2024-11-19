@@ -5,6 +5,7 @@ curr_folder = os.path.dirname(os.path.realpath(__file__))
 sys.path.extend([os.path.dirname(curr_folder)])
 import content_grabber as cg
 import database_tools as dt
+import wx_upload as wu
 
 # save_folder = r"G:\temp"
 # save_folder = r"D:\temp"
@@ -182,23 +183,25 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/space-exploration/international-space-station/astronaut-suni-williams-in-good-health-on-the-iss-nasa-says-refuting-tabloid-claims"
 # url = "https://www.space.com/space-exploration/tech/boom-supersonics-xb-1-jet-sets-new-speed-record-during-7th-test-flight"
 # url = "https://www.space.com/space-exploration/international-space-station/spacex-dragon-fires-thrusters-to-boost-iss-orbit-for-the-1st-time"
-# url = "https://www.space.com/space-exploration/human-spaceflight/the-us-is-now-at-risk-of-losing-to-china-in-the-race-to-send-people-back-to-the-moons-surface"
+url = "https://www.space.com/space-exploration/human-spaceflight/the-us-is-now-at-risk-of-losing-to-china-in-the-race-to-send-people-back-to-the-moons-surface"
 # url = "https://www.space.com/nasa-jpl-laying-off-325-employees"
 # url = "https://www.space.com/the-universe/mars/chinas-mars-rover-zhurong-finds-possible-shoreline-of-ancient-red-planet-ocean"
 # url = "https://www.space.com/space-exploration/launches-spacecraft/spacex-rolls-starship-flight-6-super-heavy-rocket-to-pad-ahead-of-nov-18-launch-photos"
 # url = "https://www.space.com/space-exploration/launches-spacecraft/europes-hera-asteroid-probe-heads-for-mars-after-engine-burn"
-url = "https://spacenews.com/roman-space-telescope-reaches-assembly-milestone/"
+# url = "https://spacenews.com/roman-space-telescope-reaches-assembly-milestone/"
 
 
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
 
-# dt.translate_h5_file(
-#     h5_path=h5_path,
-#     model="gpt-4-1106-preview",
-#     #  model="gpt-3.5-turbo",
-#     max_len=50000,
-#     temperature=0,
-# )
+dt.translate_h5_file(
+    h5_path=h5_path,
+    model="gpt-4-1106-preview",
+    #  model="gpt-3.5-turbo",
+    max_len=50000,
+    temperature=0,
+)
 
-# dt.save_text_files(h5_path)
+dt.save_text_files(h5_path)
+
+wu.upload_draft(h5_path)

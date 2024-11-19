@@ -1,4 +1,8 @@
-import os, json
+import os
+import json
+import requests
+from PIL import Image
+from io import BytesIO
 from urllib import request
 from bs4 import BeautifulSoup
 
@@ -311,7 +315,17 @@ def download_image(url, folder, filename=None):
     else:
         filename = f"{filename}{os.path.splitext(fn_original)[1]}"
 
-    request.urlretrieve(url, os.path.join(folder, filename))
+    file_ext = os.path.splitext(filename)[-1]
+
+    if file_ext != ".webp":
+        request.urlretrieve(url, os.path.join(folder, filename))
+    else:
+        filename = filename[:-5]
+        response = requests.get(url)
+        response.raise_for_status()
+        with Image.open(BytesIO(response.content)) as img:
+            rgb_img = img.convert("RGB")
+            rgb_img.save(os.path.join(folder, filename), "JPEG")
 
 
 def get_text_from_html(url):
@@ -359,8 +373,21 @@ def get_text_from_html(url):
 
 
 if __name__ == "__main__":
-    url0 = "https://www.space.com/spacex-starship-launch-debris-terrifying"
-    url1 = "https://spacenews.com/chinas-mystery-reusable-spaceplane-lands-after-276-days-in-orbit/"
-    url2 = "https://spacenews.com/maxar-pursuing-defense-deals-for-its-new-line-of-small-satellites/"
+    # url0 = "https://www.space.com/spacex-starship-launch-debris-terrifying"
+    # url1 = "https://spacenews.com/chinas-mystery-reusable-spaceplane-lands-after-276-days-in-orbit/"
+    # url2 = "https://spacenews.com/maxar-pursuing-defense-deals-for-its-new-line-of-small-satellites/"
 
-    print(get_text_from_html(url=url2))
+    # print(get_text_from_html(url=url2))
+
+    img_url0 = (
+        "https://cdn.mos.cms.futurecdn.net/TyACrKUN6v7RgNfcKysgSQ-1200-80.jpg.webp"
+    )
+    img_url1 = (
+        "https://cdn.mos.cms.futurecdn.net/YU8kxPCVpqGvkkNMDjv8m5-1200-80.jpg.webp"
+    )
+    folder = r"F:\webpage_translation\2024-11-11_space.com_00"
+    fn0 = "2024-11-11_space.com_00_img01.jpg"
+    fn1 = "2024-11-11_space.com_00_img02.jpg"
+
+    download_image(img_url0, folder, fn0)
+    download_image(img_url1, folder, fn1)
