@@ -194,14 +194,14 @@ url = "https://www.space.com/space-exploration/human-spaceflight/the-us-is-now-a
 text_dict = cg.get_text_from_html(url=url)
 h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
 
-# dt.translate_h5_file(
-#     h5_path=h5_path,
-#     model="gpt-4-1106-preview",
-#     #  model="gpt-3.5-turbo",
-#     max_len=50000,
-#     temperature=0,
-# )
+dt.translate_h5_file(
+    h5_path=h5_path,
+    model="gpt-4-1106-preview",
+    #  model="gpt-3.5-turbo",
+    max_len=50000,
+    temperature=0,
+)
 
-# dt.save_text_files(h5_path)
+dt.save_text_files(h5_path)
 
-# wu.upload_draft(h5_path, should_clear_materials=False)
+wu.upload_draft(h5_path, should_clear_materials=False)

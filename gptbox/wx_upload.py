@@ -227,9 +227,9 @@ def upload_draft(h5_path, should_clear_materials=False):
         ]
     }
 
-    # vx_res = requests.post(
-    #     url=wxurl, data=json.dumps(data, ensure_ascii=False).encode("utf-8")
-    # )
+    vx_res = requests.post(
+        url=wxurl, data=json.dumps(data, ensure_ascii=False).encode("utf-8")
+    )
     # obj = json.loads(vx_res.content)
 
     print("\ndraft posted.\n")
