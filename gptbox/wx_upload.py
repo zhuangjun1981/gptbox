@@ -5,6 +5,44 @@ import requests
 from wx_utils import get_wx_token
 
 
+def remove_tag(line: str) -> str:
+    """
+    remove the bracket tag from the line text
+    """
+    idx0 = line.index("[")
+    idx1 = line.index("]")
+    return line[:idx0] + line[idx1 + 1 :]
+
+
+def process_image_caption_line(line: str, img_meta_list: list[dict]) -> str:
+    idx = line.index("]")
+    img_idx = int(line[idx - 2 : idx])
+    img_url = img_meta_list[img_idx]["url"]
+    caption = line[idx + 1 :]
+    line = f'</br></br><img src="{img_url}" align="center">'
+    line += (
+        '<p style="text-align: center"><span style="font-size: 14px" align="center">'
+        + caption
+        + "</span></p>"
+    )
+    return line
+
+
+def merge_image_captions(lines: list[str]) -> list[str]:
+    """
+    the image caption in some translations have two lines
+    if this is the case merge them into one line.
+    """
+    idx = 0
+    while idx < len(lines):
+        curr_line = lines[idx]
+        if curr_line.startswith("[图片#"):  # caption line 1
+            if lines[idx + 1].startswith("（"):  # caption line 2
+                lines[idx] = lines[idx] + lines[idx + 1]
+                lines.pop(idx + 1)
+        idx += 1
+
+
 def upload_image(img_path):
     """
     upload one image to weichat public account and return metadata
@@ -81,7 +119,7 @@ def delete_uploaded_medias(meta_list):
             print("deleted.")
 
 
-def parse_text(text):
+def parse_text(text, img_meta_list):
     if text.startswith("```"):
         text = text[3:]
     if text.endswith("```"):
@@ -90,15 +128,74 @@ def parse_text(text):
     text_parts = {}
 
     lines = text.split("\n")
+    lines = [l for l in lines if len(l) > 0]
+    merge_image_captions(lines)
 
     text_parts["title"] = lines[0]
     text_parts["article_url"] = lines[1]
     text_parts["post_timestamp"] = lines[2]
 
     author_line = [l for l in lines if l.startswith("作者：")][-1]
+    author = author_line.split("：")[-1]
+    if len(author) > 16:
+        author_parts = author.split(" ")
+        author = author_parts[0][0] + ". " + author_parts[-1]
     text_parts["author"] = author_line.split("：")[-1]
 
-    lines = ["<p>" + l + "</p><br/>" for l in lines]
+    line_i = 0
+    is_author_line = False
+    while line_i < len(lines):
+        if line_i == 0:  # title line
+            lines[line_i] = "<p><span>" + lines[line_i] + "</span></p>"
+        elif line_i == 1:  # url and post time line
+            lines[1] = '<p><span style="font-size: 14px">' + lines[1] + "</span></p>"
+            lines[1] += '<p><span style="font-size: 14px">' + lines[2] + "</span></p>"
+            lines.pop(2)
+        elif lines[line_i].startswith("摘要："):  # abstract line
+            line = (
+                '</br></br><p><span style="font-weight: bold; color: #007AAA">'
+                + lines[line_i]
+                + "</span></p>"
+            )
+            line += (
+                '<p><span style="color: #007AAA">' + lines[line_i + 1] + "</span></p>"
+            )
+            lines[line_i] = line
+            lines.pop(line_i + 1)
+        elif lines[line_i].startswith("正文："):  # body line
+            lines[line_i] = (
+                '</br></br><p><span style="font-weight: bold">'
+                + lines[line_i]
+                + "</span></p>"
+            )
+        elif lines[line_i].startswith("[标题#"):  # section line
+            lines[line_i] = (
+                '</br></br><p style="text-align: center"><span style="font-size: 18px; font-weight: bold; color: #007AAA" align="center">'
+                + remove_tag(lines[line_i])
+                + "</span></p>"
+            )
+        elif lines[line_i].startswith("[图片#"):
+            lines[line_i] = process_image_caption_line(
+                lines[line_i], img_meta_list=img_meta_list
+            )
+        elif lines[line_i].startswith("作者："):
+            lines[line_i] = (
+                '</br></br><p><span style="font-size: 14px">'
+                + lines[line_i]
+                + "</span></p>"
+            )
+            is_author_line = True
+        else:
+            if is_author_line:
+                lines[line_i] = (
+                    '<p><span style="font_size: 14px">' + lines[line_i] + "</span></p>"
+                )
+            else:
+                lines[line_i] = "</br><p><span>" + lines[line_i] + "</span></p>"
+
+        line_i += 1
+
+    # print("\n".join(lines))
     text_parts["body"] = "".join(lines[1:])
 
     return text_parts
@@ -114,7 +211,7 @@ def upload_draft(h5_path, should_clear_materials=False):
     folder, h5_fn = os.path.split(h5_path)
     img_meta_list = upload_images(folder)
 
-    text_parts = parse_text(text)
+    text_parts = parse_text(text, img_meta_list=img_meta_list)
 
     wxurl = f"https://api.weixin.qq.com/cgi-bin/draft/add?access_token={get_wx_token()}"
     data = {
