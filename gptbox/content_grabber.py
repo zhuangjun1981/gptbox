@@ -312,20 +312,17 @@ def download_image(url, folder, filename=None):
 
     if filename is None:
         filename = fn_original
-    else:
-        filename = f"{filename}{os.path.splitext(fn_original)[1]}"
 
-    file_ext = os.path.splitext(filename)[-1]
+    file_ext = "." + url.split(".")[-1]
 
     if file_ext != ".webp":
-        request.urlretrieve(url, os.path.join(folder, filename))
+        request.urlretrieve(url, os.path.join(folder, filename + file_ext))
     else:
-        filename = filename[:-5]
         response = requests.get(url)
         response.raise_for_status()
         with Image.open(BytesIO(response.content)) as img:
             rgb_img = img.convert("RGB")
-            rgb_img.save(os.path.join(folder, filename), "JPEG")
+            rgb_img.save(os.path.join(folder, filename + ".jpg"), "JPEG")
 
 
 def get_text_from_html(url):
@@ -386,8 +383,8 @@ if __name__ == "__main__":
         "https://cdn.mos.cms.futurecdn.net/YU8kxPCVpqGvkkNMDjv8m5-1200-80.jpg.webp"
     )
     folder = r"F:\webpage_translation\2024-11-11_space.com_00"
-    fn0 = "2024-11-11_space.com_00_img01.jpg"
-    fn1 = "2024-11-11_space.com_00_img02.jpg"
+    fn0 = "2024-11-11_space.com_00_img01"
+    fn1 = "2024-11-11_space.com_00_img02"
 
     download_image(img_url0, folder, fn0)
     download_image(img_url1, folder, fn1)
