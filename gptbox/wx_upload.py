@@ -75,9 +75,6 @@ def upload_image(img_path):
     print(f"uploading image: {img_path}")
     wx_res = requests.post(url=url, files=request_file)
     obj = json.loads(wx_res.content)
-    # if "errcode" in obj:
-    #     print(f"Error uploading image. {obj}")
-    print(obj)
     return obj
 
 
@@ -116,7 +113,7 @@ def delete_uploaded_medias(meta_list):
             media_id = meta["media_id"]
             print(f"deleting {media_id} ...")
             delete_uploaded_media(media_id)
-            print("deleted.")
+            # print("deleted.")
 
 
 def parse_text(text, img_meta_list):
@@ -134,13 +131,6 @@ def parse_text(text, img_meta_list):
     text_parts["title"] = lines[0]
     text_parts["article_url"] = lines[1]
     text_parts["post_timestamp"] = lines[2]
-
-    author_line = [l for l in lines if l.startswith("作者：")][-1]
-    author = author_line.split("：")[-1]
-    if len(author) > 16:
-        author_parts = author.split(" ")
-        author = author_parts[0][0] + ". " + author_parts[-1]
-    text_parts["author"] = author_line.split("：")[-1]
 
     line_i = 0
     is_author_line = False
@@ -206,10 +196,20 @@ def upload_draft(h5_path, should_clear_materials=False):
 
     h5_f = h5py.File(h5_path, "r")
     text = h5_f["chinese_translate"][()].decode("utf-8")
+    article_url = h5_f["url"][()].decode("utf-8")
+    author = h5_f["author"][()].decode("utf-8")
     h5_f.close()
 
+    if len(author) > 16:
+        author_parts = author.split(" ")
+        author = author_parts[0][0] + ". " + author_parts[-1]
+
+    print("\nuploading images ...")
     folder, h5_fn = os.path.split(h5_path)
     img_meta_list = upload_images(folder)
+    print("images uploaded.\n")
+
+    print(f"\nposting {h5_path} to draft box ...")
 
     text_parts = parse_text(text, img_meta_list=img_meta_list)
 
@@ -218,20 +218,26 @@ def upload_draft(h5_path, should_clear_materials=False):
         "articles": [
             {
                 "title": text_parts["title"],
-                "author": text_parts["author"],
+                "author": author,
                 "content": text_parts["body"],
                 "thumb_media_id": img_meta_list[0]["media_id"],
+                "content_source_url": article_url,
+                "need_open_comment": 1,
             },
         ]
     }
-    vx_res = requests.post(
-        url=wxurl, data=json.dumps(data, ensure_ascii=False).encode("utf-8")
-    )
 
+    # vx_res = requests.post(
+    #     url=wxurl, data=json.dumps(data, ensure_ascii=False).encode("utf-8")
+    # )
     # obj = json.loads(vx_res.content)
 
+    print("\ndraft posted.\n")
+
     if should_clear_materials:
+        print("\ndeleting uploaded images ...")
         delete_uploaded_medias(img_meta_list)
+        print("images deleted.")
 
 
 if __name__ == "__main__":
