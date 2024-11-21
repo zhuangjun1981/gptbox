@@ -19,7 +19,6 @@ def get_simple_translate_prompt(txt):
 Translate the text delimited with triple backticks into Chinese. \
 Keep the text delimited in square brackets. \
 Make a new line for each paragraph in the translation. \
-Keep the summary within 120 chinese characters, including punctuations.
 
 ```{txt}```
 """

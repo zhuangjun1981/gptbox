@@ -36,7 +36,9 @@ def merge_image_captions(lines: list[str]) -> list[str]:
     idx = 0
     while idx < len(lines):
         curr_line = lines[idx]
-        if curr_line.startswith("[图片#"):  # caption line 1
+        if curr_line.startswith("[图片#") or curr_line.startswith(
+            "[image#"
+        ):  # caption line 1
             if lines[idx + 1].startswith("（"):  # caption line 2
                 lines[idx] = lines[idx] + lines[idx + 1]
                 lines.pop(idx + 1)
@@ -158,13 +160,15 @@ def parse_text(text, img_meta_list):
                 + lines[line_i]
                 + "</span></p>"
             )
-        elif lines[line_i].startswith("[标题#"):  # section line
+        elif lines[line_i].startswith("[标题#") or lines[line_i].startswith(
+            "[headline#"
+        ):  # section line
             lines[line_i] = (
                 '</br></br><p style="text-align: center"><span style="font-size: 18px; font-weight: bold; color: #007AAA" align="center">'
                 + remove_tag(lines[line_i])
                 + "</span></p>"
             )
-        elif lines[line_i].startswith("[图片#"):
+        elif lines[line_i].startswith("[图片#") or lines[line_i].startswith("[image#"):
             lines[line_i] = process_image_caption_line(
                 lines[line_i], img_meta_list=img_meta_list
             )
