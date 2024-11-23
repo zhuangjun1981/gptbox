@@ -191,7 +191,9 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/roman-space-telescope-reaches-assembly-milestone/"
 # url = "https://spacenews.com/spacex-launches-sixth-starship-but-aborts-booster-landing/"
 # url = "https://spacenews.com/china-performs-fairing-separation-test-for-crewed-moon-mission-rocket/"
-url = "https://www.space.com/space-exploration/launches-spacecraft/whats-next-for-spacexs-starship-after-its-successful-6th-test-flight"
+# url = "https://www.space.com/space-exploration/launches-spacecraft/whats-next-for-spacexs-starship-after-its-successful-6th-test-flight"
+# url = "https://www.space.com/space-exploration/launches-spacecraft/blue-origins-powerful-new-glenn-rocket-rises-on-the-pad-ahead-of-1st-launch-photo"
+url = "https://spacenews.com/china-quietly-tested-its-first-inflatable-space-module-in-orbit/"
 
 
 text_dict = cg.get_text_from_html(url=url)

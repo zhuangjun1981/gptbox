@@ -168,7 +168,11 @@ def parse_text(text, img_meta_list):
                 + remove_tag(lines[line_i])
                 + "</span></p>"
             )
-        elif lines[line_i].startswith("[图片#") or lines[line_i].startswith("[image#"):
+        elif (
+            lines[line_i].startswith("[图片#")
+            or lines[line_i].startswith("[image#")
+            or lines[line_i].startswith("[图像#")
+        ):
             lines[line_i] = process_image_caption_line(
                 lines[line_i], img_meta_list=img_meta_list
             )
