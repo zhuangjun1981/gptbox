@@ -193,7 +193,10 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/china-performs-fairing-separation-test-for-crewed-moon-mission-rocket/"
 # url = "https://www.space.com/space-exploration/launches-spacecraft/whats-next-for-spacexs-starship-after-its-successful-6th-test-flight"
 # url = "https://www.space.com/space-exploration/launches-spacecraft/blue-origins-powerful-new-glenn-rocket-rises-on-the-pad-ahead-of-1st-launch-photo"
-url = "https://spacenews.com/china-quietly-tested-its-first-inflatable-space-module-in-orbit/"
+# url = "https://spacenews.com/china-quietly-tested-its-first-inflatable-space-module-in-orbit/"
+# url = "https://spacenews.com/faa-updates-environmental-review-for-increased-starship-launches/"
+# url = "https://www.space.com/space-exploration/international-space-station/russian-cargo-spacecrafts-unexpected-odor-delays-delivery-to-astronauts-on-iss"
+url = "https://www.space.com/space-exploration/missions/spacex-falcon-heavy-rocket-will-launch-nasas-epic-dragonfly-mission-to-saturns-huge-moon-titan-in-2028"
 
 
 text_dict = cg.get_text_from_html(url=url)
