@@ -7,7 +7,13 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 def run_gpt(prompt, model="gpt-3.5-turbo", **kwargs):
-    messages = [{"role": "user", "content": prompt}]
+    messages = [
+        {
+            "role": "system",
+            "content": "you are a professional translator, translating English news articles to Chinese",
+        },
+        {"role": "user", "content": prompt},
+    ]
 
     response = openai.ChatCompletion.create(model=model, messages=messages, **kwargs)
 
@@ -16,7 +22,7 @@ def run_gpt(prompt, model="gpt-3.5-turbo", **kwargs):
 
 def get_simple_translate_prompt(txt):
     prompt = f"""
-Translate the text delimited with triple backticks into Chinese. \
+Translate the text delimited with ``` into Chinese. \
 Keep the text delimited in square brackets. \
 Make a new line for each paragraph in the translation. \
 
@@ -27,7 +33,7 @@ Make a new line for each paragraph in the translation. \
 
 def get_summary_prompt(txt):
     prompt = f"""
-Summarize the text delimited with triple backticks into 50 words.
+Summarize the text delimited with ``` into 50 words.
 
 ```{txt}```
 """
