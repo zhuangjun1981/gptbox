@@ -198,7 +198,15 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/space-exploration/international-space-station/russian-cargo-spacecrafts-unexpected-odor-delays-delivery-to-astronauts-on-iss"
 # url = "https://www.space.com/space-exploration/missions/spacex-falcon-heavy-rocket-will-launch-nasas-epic-dragonfly-mission-to-saturns-huge-moon-titan-in-2028"
 # url = "https://www.space.com/space-exploration/launches-spacecraft/new-japanese-rocket-engine-explodes-during-testing-for-2nd-time-in-16-months"
-url = "https://www.space.com/ryugu-asteroid-sample-earth-life-colonization"
+# url = "https://www.space.com/ryugu-asteroid-sample-earth-life-colonization"
+# url = "https://www.space.com/space-exploration/international-space-station/international-space-station-dodges-2nd-piece-of-space-junk-in-6-days"
+# url = "https://spacenews.com/china-launches-first-long-march-12-from-new-commercial-spaceport-in-boost-for-countrys-lunar-plans/"
+# url = "https://www.space.com/space-exploration/missions/voyager-1-interstellar-spacecraft-finds-its-voice-again-as-nasa-restores-communications"
+# url = "https://www.space.com/space-exploration/missions/2-space-telescope-designs-will-battle-it-out-to-become-nasas-next-cosmic-imager"
+# url = "https://spacenews.com/china-debuts-modified-solid-rocket-with-remote-sensing-satellite-launch/"
+# url = "https://www.space.com/the-universe/sun/solar-maximum-just-knocked-3-satellites-out-of-orbit-heres-why-more-may-be-on-the-way"
+# url = "https://www.space.com/space-exploration/artemis/nasa-delays-artemis-2-moon-mission-to-april-2026-artemis-3-lunar-landing-to-mid-2027"
+url = "https://www.space.com/space-exploration/artemis/trump-may-cancel-nasas-powerful-sls-moon-rocket-heres-what-that-would-mean-for-elon-musk-and-the-future-of-space-travel"
 
 
 text_dict = cg.get_text_from_html(url=url)
