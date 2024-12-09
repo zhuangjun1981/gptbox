@@ -5,6 +5,7 @@ from PIL import Image
 from io import BytesIO
 from urllib import request
 from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 
 def parse_html(url):
@@ -307,6 +308,8 @@ def download_image(url, folder, filename=None):
     :params filename: string, file name to be saved,
                       if None, original file name will be used.
     """
+
+    url = quote(url, safe=":/")
 
     fn_original = os.path.split(url)[1]
 
