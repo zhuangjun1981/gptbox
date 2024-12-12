@@ -208,7 +208,11 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/space-exploration/artemis/nasa-delays-artemis-2-moon-mission-to-april-2026-artemis-3-lunar-landing-to-mid-2027"
 # url = "https://www.space.com/space-exploration/artemis/trump-may-cancel-nasas-powerful-sls-moon-rocket-heres-what-that-would-mean-for-elon-musk-and-the-future-of-space-travel"
 # url = "https://www.space.com/space-exploration/mars-rovers/gigantic-spiderwebs-on-mars-are-the-next-big-target-for-nasas-curiosity-rover-agency-reveals"
-url = "https://spacenews.com/u-s-space-force-official-warns-of-rising-chinese-threats"
+# url = "https://spacenews.com/u-s-space-force-official-warns-of-rising-chinese-threats"
+# url = "https://www.space.com/the-universe/a-giant-rising-in-the-desert-worlds-largest-telescope-comes-together-photo"
+# url = "https://spacenews.com/blue-origin-says-first-new-glenn-launch-still-scheduled-for-2024"
+# url = "https://spacenews.com/china-set-to-launch-first-guowang-megaconstellation-satellites-on-long-march-5b/"
+url = "https://www.space.com/space-exploration/quesst/nasa-will-fly-f-15s-through-supersonic-shock-waves-behind-its-experimental-x-57-jet"
 
 
 text_dict = cg.get_text_from_html(url=url)
