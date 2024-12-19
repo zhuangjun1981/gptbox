@@ -212,7 +212,14 @@ save_folder = r"F:\webpage_translation"
 # url = "https://www.space.com/the-universe/a-giant-rising-in-the-desert-worlds-largest-telescope-comes-together-photo"
 # url = "https://spacenews.com/blue-origin-says-first-new-glenn-launch-still-scheduled-for-2024"
 # url = "https://spacenews.com/china-set-to-launch-first-guowang-megaconstellation-satellites-on-long-march-5b/"
-url = "https://www.space.com/space-exploration/quesst/nasa-will-fly-f-15s-through-supersonic-shock-waves-behind-its-experimental-x-57-jet"
+# url = "https://www.space.com/space-exploration/quesst/nasa-will-fly-f-15s-through-supersonic-shock-waves-behind-its-experimental-x-57-jet"
+# url = "https://www.space.com/space-exploration/human-spaceflight/india-practices-crew-module-recovery-for-gaganyaan-astronaut-mission-photos"
+# url = "https://spacenews.com/jpl-completes-investigation-of-ingenuitys-final-flight"
+# url = "https://spacenews.com/china-launches-laser-diamond-constellation-test-satellites"
+# url = "https://spacenews.com/china-kicks-off-guowang-megaconstellation-with-long-march-5b-launch"
+# url = "https://www.space.com/space-exploration/private-spaceflight/who-is-jared-isaacman-trumps-pick-for-nasa-chief"
+# url = "https://www.space.com/space-exploration/human-spaceflight/chinese-astronauts-conduct-record-breaking-9-hour-spacewalk-outside-tiangong-space-station-photos"
+url = "https://www.space.com/the-universe/moon/double-moon-mission-spacex-to-launch-2-private-lunar-landers-in-january"
 
 
 text_dict = cg.get_text_from_html(url=url)
@@ -220,7 +227,9 @@ h5_path = dt.save_html_content(text_dict=text_dict, folder=save_folder)
 
 dt.translate_h5_file(
     h5_path=h5_path,
-    model="gpt-4-1106-preview",
+    # model="gpt-4o-mini",
+    model="gpt-4o",
+    # model="gpt-4-1106-preview",
     #  model="gpt-3.5-turbo",
     max_len=50000,
     temperature=0,
