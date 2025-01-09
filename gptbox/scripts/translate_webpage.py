@@ -219,7 +219,24 @@ save_folder = r"F:\webpage_translation"
 # url = "https://spacenews.com/china-kicks-off-guowang-megaconstellation-with-long-march-5b-launch"
 # url = "https://www.space.com/space-exploration/private-spaceflight/who-is-jared-isaacman-trumps-pick-for-nasa-chief"
 # url = "https://www.space.com/space-exploration/human-spaceflight/chinese-astronauts-conduct-record-breaking-9-hour-spacewalk-outside-tiangong-space-station-photos"
-url = "https://www.space.com/the-universe/moon/double-moon-mission-spacex-to-launch-2-private-lunar-landers-in-january"
+# url = "https://www.space.com/the-universe/moon/double-moon-mission-spacex-to-launch-2-private-lunar-landers-in-january"
+# url = "https://spacenews.com/china-nears-record-launch-year-with-ceres-1-and-sar-satellite-missions/"
+# url = "https://www.space.com/space-exploration/human-spaceflight/boeing-starliner-astronauts-will-return-to-earth-in-march-2025-after-new-nasa-spacex-delay"
+# url = "https://www.space.com/space-exploration/private-spaceflight/axioms-private-space-station-is-coming-sooner-than-we-thought"
+# url = "https://www.space.com/the-universe/sun/this-christmas-eve-humans-will-try-to-embrace-a-star"
+# url = "https://www.space.com/the-universe/24-amazing-space-images-from-2024"
+# url = "https://spacenews.com/china-suffers-commercial-rocket-failure-but-sets-record-for-annual-launches/"
+# url = "https://spacenews.com/blue-origin-test-fires-new-glenn-first-stage-ahead-of-inaugural-launch/"
+# url = "https://www.space.com/the-universe/sun/nasas-parker-solar-probe-phones-home-after-surviving-historic-close-sun-flyby"
+# url = "https://www.space.com/space-exploration/missions/starship-europa-clipper-and-more-the-top-10-spaceflight-stories-of-2024"
+# url = "https://www.space.com/the-universe/exoplanets/mathematically-perfect-star-system-discovered-105-light-years-from-earth-may-still-be-in-its-infancy-could-that-change-its-prospects-for-life"
+# url = "https://spacenews.com/spacex-launch-surge-helps-set-new-global-launch-record-in-2024/"
+# url = "https://spacenews.com/china-to-debut-new-long-march-and-commercial-rockets-in-2025/"
+# url = "https://spacenews.com/india-eyes-record-year-for-space-with-10-planned-launches/"
+# url = "https://www.space.com/space-exploration/launches-spacecraft/blue-origin-ready-to-launch-1st-new-glenn-rocket"
+# url = "https://www.space.com/space-exploration/launches-spacecraft/spacexs-starship-flight-7-test-flight-will-deploy-simulated-starlink-satellites-for-1st-time"
+# url = "https://www.space.com/blue-origin-new-glenn-rocket-name"
+url = "https://www.space.com/space-exploration/tech/space-forces-secretive-x-37b-space-plane-soars-past-1-year-in-orbit"
 
 
 text_dict = cg.get_text_from_html(url=url)
@@ -230,7 +247,7 @@ dt.translate_h5_file(
     # model="gpt-4o-mini",
     model="gpt-4o",
     # model="gpt-4-1106-preview",
-    #  model="gpt-3.5-turbo",
+    # model="gpt-3.5-turbo",
     max_len=50000,
     temperature=0,
 )
